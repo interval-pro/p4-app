@@ -1,0 +1,25 @@
+button {
+  padding: 0.4rem 0.8rem;
+  color: white;
+  background: black;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  cursor: pointer;
+  color: black;
+  background: white;
+}
+
+.ghost {
+  background: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.ghost:hover {
+  filter: brightness(0.9);
+}

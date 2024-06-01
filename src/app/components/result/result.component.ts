@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './result.component.html',
-  styleUrl: './result.component.css',
+  styleUrl: './result.component.scss',
 })
 export class ResultComponent {
   constructor(private fs: FormService) {}

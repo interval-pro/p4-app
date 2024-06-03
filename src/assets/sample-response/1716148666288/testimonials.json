@@ -1,0 +1,4 @@
+{
+  "HTML": "<section id=\"testimonials\"><h2>What Athletes Are Saying</h2><blockquote>\"This drink has completely transformed my training sessions!\"<footer>— John Doe, Professional Runner</footer></blockquote><blockquote>\"I feel unstoppable with this boost formula!\"<footer>— Jane Smith, Triathlete</footer></blockquote></section>",
+  "CSS": "#testimonials{padding:40px;background:linear-gradient(135deg, #1a1a1a, #333);color:#fff;text-align:center;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,0.2);}.testimonials h2{font-family:'Impact', sans-serif;font-size:2.5rem;color:#ff6700;margin-bottom:20px;}.testimonials blockquote{font-family:'Futura', sans-serif;font-size:1.2rem;line-height:1.6;border-left:4px solid #00aaff;padding-left:15px;margin:20px auto;width:80%;color:#fafafa;}.testimonials footer{font-size:1rem;color:#ff6700;margin-top:10px;font-style:italic;}"
+}

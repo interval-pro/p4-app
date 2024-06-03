@@ -1,7 +1,19 @@
-#result-wrapper {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.section-wrapper {
+  position: relative;
+}
+
+.btn {
+  opacity: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.section-wrapper:hover .section {
+  filter: blur(20px);
+}
+
+.section-wrapper:hover .btn {
+  opacity: 1;
 }

@@ -1,5 +1,17 @@
 .section-wrapper {
   position: relative;
+
+  .section {
+    transition: filter 0.25s ease-in-out;
+  }
+
+  &:hover .section {
+    filter: blur(20px);
+  }
+
+  &:hover .btn {
+    opacity: 1;
+  }
 }
 
 .btn {
@@ -8,12 +20,5 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-}
-
-.section-wrapper:hover .section {
-  filter: blur(20px);
-}
-
-.section-wrapper:hover .btn {
-  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
 }

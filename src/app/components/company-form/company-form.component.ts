@@ -13,7 +13,7 @@ import { CompanyData } from '../../models/company-data.model';
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink, ButtonComponent],
   templateUrl: './company-form.component.html',
-  styleUrl: './company-form.component.css',
+  styleUrl: './company-form.component.scss',
 })
 export class CompanyFormComponent implements OnInit {
   companyForm = {} as FormGroup;

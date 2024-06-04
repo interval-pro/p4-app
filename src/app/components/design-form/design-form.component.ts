@@ -45,4 +45,8 @@ export class DesignFormComponent implements OnInit {
     this.fs.updateCompanyData(this.designForm.value);
     this.router.navigateByUrl('/result');
   }
+
+  onClick(): void {
+    console.log('button clicked');
+  }
 }

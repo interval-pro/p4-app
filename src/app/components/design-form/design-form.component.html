@@ -3,26 +3,42 @@
   <p id="step">Step 2</p>
 
   <form [formGroup]="designForm">
-    <textarea
-      id="fonts"
-      type="text"
-      formControlName="fonts"
-      placeholder="Fonts..."
-    ></textarea>
 
-    <textarea
-      id="colors"
-      type="text"
-      formControlName="colors"
-      placeholder="Colors..."
-    ></textarea>
+    <div class="dropdown">
+      <button class="dropbtn">Fonts</button>
+      <div class="dropdown-content">
+        <button>Serif</button>
+        <button>Sans Serif</button>
+        <button>Monospace</button>
+        <button>Jungle Fever</button>
+      </div>
+    </div> 
 
-    <textarea
-      id="toneOfVoice"
-      type="text"
-      formControlName="toneOfVoice"
-      placeholder="Tone of voice..."
-    ></textarea>
+    <div class="dropdown">
+      <button class="dropbtn">Colors</button>
+      <div class="dropdown-content">
+        <button (click)="onClick()">Primary</button>
+        <button (click)="onClick()">Secondary</button>
+        <button (click)="onClick()">Accent</button>
+      </div>
+    </div>
+    
+    <div class="color-picker">
+      <label for="colorPicker"><i class='bx bx-palette'></i>
+        </label>
+      <input type="color" value="#1dbbce" id="colorPicker">
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">Tone of Voice</button>
+      <div class="dropdown-content">
+        <button>Friendly</button>
+        <button>Humorous</button>
+        <button>Formal</button>
+        <button>Assertive</button>
+        <button>Professional</button>
+      </div>
+    </div> 
 
     <textarea
       id="additionalDesignFeatures"

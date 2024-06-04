@@ -1,0 +1,27 @@
+@import "../../../colors";
+
+button {
+  padding: 0.4rem 0.8rem;
+  color: $on-primary;
+  background: $primary;
+  border: 1px solid $primary;
+  border-radius: 0.5rem;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  cursor: pointer;
+  color: $primary;
+  background: $on-primary;
+}
+
+.ghost {
+  background: $on-primary;
+  color: $primary;
+  border: 1px solid $primary;
+}
+
+.ghost:hover {
+  filter: brightness(0.9);
+}

@@ -17,7 +17,7 @@ import { ButtonComponent } from '../../shared/button/button.component';
   standalone: true,
   imports: [ButtonComponent],
   templateUrl: './result.component.html',
-  styleUrl: './result.component.css',
+  styleUrl: './result.component.scss',
 })
 export class ResultComponent implements OnInit, OnDestroy {
   result = {} as Result;

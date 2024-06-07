@@ -18,7 +18,9 @@ export class FormService {
       information: '',
       additionalInformation: '',
       fonts: '',
-      colors: '',
+      primaryColor: '',
+      secondaryColor: '',
+      accentColor: '',
       toneOfVoice: '',
       additionalDesignFeatures: '',
     };
@@ -26,6 +28,7 @@ export class FormService {
 
   updateCompanyData(data: Partial<CompanyData>): void {
     this.companyData = { ...this.companyData, ...data };
+    console.log(this.companyData);
   }
 
   getCompanyData(): CompanyData {

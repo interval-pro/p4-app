@@ -4,7 +4,7 @@
 
   <form [formGroup]="designForm">
 
-    <div class="dropdown">
+    <!-- <div class="dropdown">
       <button class="dropbtn">Fonts</button>
       <div class="dropdown-content">
         <button>Serif</button>
@@ -12,24 +12,76 @@
         <button>Monospace</button>
         <button>Jungle Fever</button>
       </div>
-    </div> 
+    </div> -->
+    
+    <div class="fonts">
 
-    <div class="dropdown">
-      <button class="dropbtn">Colors</button>
-      <div class="dropdown-content">
-        <button (click)="onClick()">Primary</button>
-        <button (click)="onClick()">Secondary</button>
-        <button (click)="onClick()">Accent</button>
+      <label class="label" for="lang">Fonts</label>
+      <div dropdown action="#">
+        <div *ngIf="this.companyData.fonts"> Current: {{this.companyData.fonts}}</div>
+        <select class="dropbtn" name="languages" id="lang">
+          <option (click)="onClickFont($event)">Serif</option>
+          <option (click)="onClickFont($event)">Sans Serif</option>
+          <option (click)="onClickFont($event)">Monospace</option>
+          <option (click)="onClickFont($event)">Futura</option>
+          <option (click)="onClickFont($event)">Jungle Fever</option>
+        </select>
+      </div>
+
+    </div>
+
+
+    <div class="colors">Colors</div>
+      
+    <div *ngIf="this.companyData.primaryColor"> Current: {{companyData.primaryColor}}</div>
+      <div class="dropdown">
+        <button class="dropbtn">Primary</button>
+        <div class="dropdown-content">
+          <input (click)="onPrimaryColor($event)" (change)="onPrimaryColor($event)" value="{{companyData.primaryColor}}" type="color" id="colorPicker">
       </div>
     </div>
     
-    <div class="color-picker">
+    <div *ngIf="this.companyData.secondaryColor"> Current: {{this.companyData.secondaryColor}}</div>
+      <div class="dropdown">
+        <button class="dropbtn">Secondary</button>
+        <div class="dropdown-content">
+          <input (click)="onSecondaryColor($event)" (change)="onSecondaryColor($event)" value="{{companyData.secondaryColor}}" type="color" id="colorPicker">
+      </div>
+    </div>
+
+    <div *ngIf="this.companyData.accentColor"> Current: {{this.companyData.accentColor}}</div>
+      <div class="dropdown">
+        <button class="dropbtn">Accent</button>
+        <div class="dropdown-content">
+          <input (click)="onAccentColor($event)" (change)="onAccentColor($event)" value="{{companyData.accentColor}}" type="color" id="colorPicker">
+      </div>
+    </div>
+    
+    
+    <!-- <div class="color-picker">
       <label for="colorPicker"><i class='bx bx-palette'></i>
         </label>
       <input type="color" value="#1dbbce" id="colorPicker">
+    </div> -->
+
+
+    <div class="toneVoice">
+
+      <label class="label" for="lang">Tone of Voice</label>
+      <div dropdown action="#">
+        <div *ngIf="this.companyData.toneOfVoice"> Current: {{this.companyData.toneOfVoice}}</div>
+        <select class="dropbtn" name="languages" id="lang">
+          <option (click)="onClickVoice($event)">Friendly</option>
+          <option (click)="onClickVoice($event)">Humorous</option>
+          <option (click)="onClickVoice($event)">Formal</option>
+          <option (click)="onClickVoice($event)">Assertive</option>
+          <option (click)="onClickVoice($event)">Professional</option>
+        </select>
+      </div>
+
     </div>
 
-    <div class="dropdown">
+    <!-- <div class="dropdown">
       <button class="dropbtn">Tone of Voice</button>
       <div class="dropdown-content">
         <button>Friendly</button>
@@ -38,7 +90,7 @@
         <button>Assertive</button>
         <button>Professional</button>
       </div>
-    </div> 
+    </div>  -->
 
     <textarea
       id="additionalDesignFeatures"

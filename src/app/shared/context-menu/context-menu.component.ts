@@ -30,6 +30,20 @@ export class ContextMenuComponent {
   }
 
   open(event: MouseEvent) {
+    if (!event) return;
+    event.preventDefault();
+
+    this.target = event.target as HTMLElement;
+    this.availableActions = this.displayActions(this.target);
+
+    this.isNearBottom =
+      this.viewportHeight - event.clientY < this.viewportHeight / 10;
+
+    this.position.x = event.clientX + window.scrollX;
+    this.position.y = event.clientY + window.scrollY;
+    this.renderer.setStyle(this.target, 'outline', '2px solid white');
+    this.renderer.setStyle(this.target, 'filter', 'brightness(2)');
+    this.visible = true;
   }
   close(event: MouseEvent) {
   }

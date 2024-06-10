@@ -37,7 +37,7 @@ export class ContextMenuComponent {
     this.availableActions = this.displayActions(this.target);
 
     this.isNearBottom =
-      this.viewportHeight - event.clientY < this.viewportHeight / 10;
+      this.viewportHeight - event.clientY < this.viewportHeight / 5;
 
     this.position.x = event.clientX + window.scrollX;
     this.position.y = event.clientY + window.scrollY;

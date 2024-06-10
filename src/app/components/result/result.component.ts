@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  HostListener,
   OnDestroy,
   OnInit,
   Renderer2,
@@ -9,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { ApiService } from '../../services/api.service';
-import { Result, Section } from '../../models/result.model';
+import { Result } from '../../models/result.model';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 
@@ -30,6 +31,18 @@ export class ResultComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private elRef: ElementRef
   ) {}
+
+  @HostListener('document:mouseover', ['$event'])
+  onMouseOver(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target) this.renderer.setStyle(target, 'outline', '2px solid white');
+  }
+
+  @HostListener('document:mouseout', ['$event'])
+  onMouseOut(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target) this.renderer.removeStyle(target, 'outline');
+  }
 
   ngOnInit(): void {
     this.resultSubscription = this.subscribeToResult();
@@ -52,9 +65,6 @@ export class ResultComponent implements OnInit, OnDestroy {
   applyStyles(styles: string) {
     const styleElement = this.renderer.createElement('style');
     styleElement.innerHTML = styles;
-    // styleElement.innerHTML +=
-    //   'section:hover, #site > header:hover, #site > footer:hover { filter: brightness(1.5); border: 1px solid white }';
-
     this.renderer.appendChild(this.elRef.nativeElement, styleElement);
   }
 

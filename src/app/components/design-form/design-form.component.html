@@ -33,24 +33,27 @@
 
     <div class="colors">Colors</div>
       
-    <div *ngIf="this.companyData.primaryColor"> Current: {{companyData.primaryColor}}</div>
-      <div class="dropdown">
+    <div class="dropdown">
+        <div *ngIf="this.companyData.primaryColor"> Current: {{companyData.primaryColor}}</div>
+        <div class="color" [style.backgroundColor]="this.companyData.primaryColor" *ngIf="this.companyData.primaryColor">&nbsp;</div>
         <button class="dropbtn">Primary</button>
         <div class="dropdown-content">
           <input (click)="onPrimaryColor($event)" (change)="onPrimaryColor($event)" value="{{companyData.primaryColor}}" type="color" id="colorPicker">
       </div>
     </div>
     
-    <div *ngIf="this.companyData.secondaryColor"> Current: {{this.companyData.secondaryColor}}</div>
-      <div class="dropdown">
+    <div class="dropdown">
+        <div *ngIf="this.companyData.secondaryColor"> Current: {{this.companyData.secondaryColor}}</div>
+        <div class="color" [style.backgroundColor]="this.companyData.secondaryColor" *ngIf="this.companyData.secondaryColor">&nbsp;</div>
         <button class="dropbtn">Secondary</button>
         <div class="dropdown-content">
           <input (click)="onSecondaryColor($event)" (change)="onSecondaryColor($event)" value="{{companyData.secondaryColor}}" type="color" id="colorPicker">
       </div>
     </div>
 
-    <div *ngIf="this.companyData.accentColor"> Current: {{this.companyData.accentColor}}</div>
-      <div class="dropdown">
+    <div class="dropdown">
+        <div *ngIf="this.companyData.accentColor"> Current: {{this.companyData.accentColor}}</div>
+        <div class="color" [style.backgroundColor]="this.companyData.accentColor" *ngIf="this.companyData.accentColor">&nbsp;</div>
         <button class="dropbtn">Accent</button>
         <div class="dropdown-content">
           <input (click)="onAccentColor($event)" (change)="onAccentColor($event)" value="{{companyData.accentColor}}" type="color" id="colorPicker">

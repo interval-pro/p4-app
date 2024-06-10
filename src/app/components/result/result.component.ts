@@ -11,11 +11,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ApiService } from '../../services/api.service';
 import { Result, Section } from '../../models/result.model';
 import { ButtonComponent } from '../../shared/button/button.component';
+import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 
 @Component({
   selector: 'app-result',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, ContextMenuComponent],
   templateUrl: './result.component.html',
   styleUrl: './result.component.scss',
 })
@@ -38,7 +39,9 @@ export class ResultComponent implements OnInit, OnDestroy {
     return this.api.getMockedData().subscribe({
       next: (res) => {
         this.result = res;
-        this.result.sections = this.sanitizeSections(this.result.sections);
+        this.result.safeContent = this.sanitizer.bypassSecurityTrustHtml(
+          this.result.body
+        );
         this.applyStyles(this.result.styles);
       },
       error: console.log,
@@ -46,21 +49,12 @@ export class ResultComponent implements OnInit, OnDestroy {
     });
   }
 
-  regenerateSection(section: Section) {
-    // api call to be implemented
-    console.log(section);
-  }
-
-  sanitizeSections(sections: Section[]) {
-    return sections.map((section: Section) => ({
-      ...section,
-      safeContent: this.sanitizer.bypassSecurityTrustHtml(section.HTML),
-    }));
-  }
-
   applyStyles(styles: string) {
     const styleElement = this.renderer.createElement('style');
     styleElement.innerHTML = styles;
+    // styleElement.innerHTML +=
+    //   'section:hover, #site > header:hover, #site > footer:hover { filter: brightness(1.5); border: 1px solid white }';
+
     this.renderer.appendChild(this.elRef.nativeElement, styleElement);
   }
 

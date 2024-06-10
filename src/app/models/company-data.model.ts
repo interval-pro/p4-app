@@ -6,7 +6,6 @@ export interface CompanyData {
   information: string;
   additionalInformation: string;
   fonts: string;
-  // colors: string;
   primaryColor: string;
   secondaryColor: string;
   accentColor: string;

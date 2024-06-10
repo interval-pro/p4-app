@@ -19,14 +19,13 @@ import { CommonModule } from '@angular/common';
 export class DesignFormComponent implements OnInit {
   designForm = {} as FormGroup;
   companyData = {} as CompanyData;
-  font: string = ''; // default font
-  toneOfVoice: string = ''; // default tone of voice
+  font: string = ''; // default font?
+  toneOfVoice: string = ''; // default tone of voice?
   selectedFont: string = '';
   selectedToneOfVoice: string = '';
-  showFont: boolean = false;
-  primaryColor: string = '';
-  secondaryColor: string = '';
-  accentColor: string = '';
+  primaryColor: string = ''; // default primary color?
+  secondaryColor: string = ''; // default secondary color?
+  accentColor: string = ''; // default accent color?
   selectedPrimaryColor: string = '';
   selectedSecondaryColor: string = '';
   selectedAccentColor: string = '';
@@ -42,9 +41,7 @@ export class DesignFormComponent implements OnInit {
   }
 
   onInit(): void {
-    
     this.companyData = this.fs.getCompanyData();
-    
     this.designForm = this.fb.nonNullable.group({
       fonts: this.companyData.fonts,
       toneOfVoice: this.companyData.toneOfVoice,
@@ -52,20 +49,11 @@ export class DesignFormComponent implements OnInit {
       secondaryColor: this.companyData.secondaryColor,
       accentColor: this.companyData.accentColor,
       additionalDesignFeatures: this.companyData.additionalDesignFeatures,
-      // colors: this.companyData.colors,
-      
     });
-
-    if (!this.companyData.fonts) {
-      console.log(`no font`);
-    }
   }
 
   onLoad(): void {
-    this.showFont = true;
-
     this.companyData = this.fs.getCompanyData();
-    
     this.designForm = this.fb.nonNullable.group({
       fonts: this.selectedFont,
       toneOfVoice: this.selectedToneOfVoice,
@@ -73,8 +61,6 @@ export class DesignFormComponent implements OnInit {
       secondaryColor: this.selectedSecondaryColor,
       accentColor: this.selectedAccentColor,
       additionalDesignFeatures: this.companyData.additionalDesignFeatures,
-      // colors: this.companyData.colors,
-      
     });
   }
 
@@ -89,63 +75,46 @@ export class DesignFormComponent implements OnInit {
     this.router.navigateByUrl('/result');
   }
 
+  onChange(): void {
+    this.selectedFont = this.companyData.fonts;
+    this.selectedToneOfVoice = this.companyData.toneOfVoice;
+    this.selectedPrimaryColor = this.companyData.primaryColor;
+    this.selectedSecondaryColor = this.companyData.secondaryColor;
+    this.selectedAccentColor = this.companyData.accentColor;
+  }
+
   onClickFont(event: any): void {
     this.font = event.target.innerHTML;
     this.companyData.fonts = this.font;
-    this.selectedFont = this.font;
-    this.selectedToneOfVoice = this.companyData.toneOfVoice;
-
+    this.onChange();
     this.onLoad();
-    console.log('button clicked', this.font);
   }
 
   onClickVoice(event: any): void {
     this.toneOfVoice = event.target.innerHTML
     this.companyData.toneOfVoice = this.toneOfVoice;
-    this.selectedToneOfVoice = this.toneOfVoice;
-    this.selectedFont = this.companyData.fonts;
-
+    this.onChange();
     this.onLoad();
-    console.log('button clicked', this.toneOfVoice);
   }
 
   onPrimaryColor(event: any): void {
     this.primaryColor = event.target.value;
-    this.selectedPrimaryColor = this.primaryColor;
     this.companyData.primaryColor = this.primaryColor;
-
-    this.selectedFont = this.companyData.fonts;
-    this.selectedToneOfVoice = this.companyData.toneOfVoice;
-    this.selectedSecondaryColor = this.companyData.secondaryColor;
-    this.selectedAccentColor = this.companyData.accentColor;
+    this.onChange();
     this.onLoad();
-    console.log(this.primaryColor);
   }
 
   onSecondaryColor(event: any): void {
     this.secondaryColor = event.target.value;
-    this.selectedSecondaryColor = this.secondaryColor;
     this.companyData.secondaryColor = this.secondaryColor;
-
-    this.selectedFont = this.companyData.fonts;
-    this.selectedToneOfVoice = this.companyData.toneOfVoice;
-    this.selectedPrimaryColor = this.companyData.primaryColor;
-    this.selectedAccentColor = this.companyData.accentColor;
+    this.onChange();
     this.onLoad();
-    console.log(this.secondaryColor);
   }
 
   onAccentColor(event: any): void {
     this.accentColor = event.target.value;
-    this.selectedAccentColor = this.accentColor;
     this.companyData.accentColor = this.accentColor;
-
-    this.selectedFont = this.companyData.fonts;
-    this.selectedToneOfVoice = this.companyData.toneOfVoice;
-    this.selectedPrimaryColor = this.companyData.primaryColor;
-    this.selectedSecondaryColor = this.companyData.secondaryColor;
+    this.onChange();
     this.onLoad();
-    console.log(this.accentColor);
   }
-
 }

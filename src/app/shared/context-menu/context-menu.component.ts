@@ -45,6 +45,31 @@ export class ContextMenuComponent {
     this.renderer.setStyle(this.target, 'filter', 'brightness(2)');
     this.visible = true;
   }
+
   close(event: MouseEvent) {
+    if (!event) return;
+
+    event.preventDefault();
+
+    this.renderer.removeStyle(this.target, 'outline');
+    this.renderer.removeStyle(this.target, 'filter');
+    this.target = {} as HTMLElement;
+    this.visible = false;
+  }
+
+  displayActions(target: HTMLElement) {
+    const nodeName = target.nodeName;
+
+    for (const key in actionMappings) {
+      if (actionMappings[key].targets.includes(nodeName)) {
+        return actionMappings[key].actions;
+      }
+    }
+
+    return ['Delete'];
+  }
+
+  onAction(action: string) {
+    console.log(action, this.target);
   }
 }

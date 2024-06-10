@@ -9,28 +9,27 @@ import { actionMappings } from '../action-mappings';
   styleUrl: './context-menu.component.scss',
 })
 export class ContextMenuComponent {
-  visible = false;
-  position = { x: 0, y: 0 };
   target = {} as HTMLElement;
-  availableActions: string[] = [];
+  position = { x: 0, y: 0 };
+  isVisible: boolean = false;
   isNearBottom: boolean = false;
+  availableActions: string[] = [];
   viewportHeight = window.innerHeight;
 
   constructor(private renderer: Renderer2) {}
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-    if (this.visible) this.close(event);
+    if (this.isVisible) this.close(event);
   }
 
   @HostListener('document:contextmenu', ['$event'])
   onDocumentRightClick(event: MouseEvent) {
-    if (!this.visible) return this.open(event);
-    this.close(event);
+    if (this.isVisible) return this.close(event);
+    this.open(event);
   }
 
   open(event: MouseEvent) {
-    if (!event) return;
     event.preventDefault();
 
     this.target = event.target as HTMLElement;
@@ -41,20 +40,16 @@ export class ContextMenuComponent {
 
     this.position.x = event.clientX + window.scrollX;
     this.position.y = event.clientY + window.scrollY;
-    this.renderer.setStyle(this.target, 'outline', '2px solid white');
-    this.renderer.setStyle(this.target, 'filter', 'brightness(2)');
-    this.visible = true;
+    this.renderer.setStyle(this.target, 'filter', 'blur(3px)');
+    this.isVisible = true;
   }
 
   close(event: MouseEvent) {
-    if (!event) return;
-
     event.preventDefault();
 
-    this.renderer.removeStyle(this.target, 'outline');
     this.renderer.removeStyle(this.target, 'filter');
     this.target = {} as HTMLElement;
-    this.visible = false;
+    this.isVisible = false;
   }
 
   displayActions(target: HTMLElement) {

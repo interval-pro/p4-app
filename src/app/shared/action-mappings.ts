@@ -15,7 +15,19 @@ export const actionMappings: actionMappings = {
     actions: ['Regenerate List'],
   },
   text: {
-    targets: ['SPAN', 'P', 'A', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
+    targets: [
+      'SPAN',
+      'P',
+      'A',
+      'LI',
+      'H1',
+      'H2',
+      'H3',
+      'H4',
+      'H5',
+      'H6',
+      'BLOCKQUOTE',
+    ],
     actions: ['Regenerate Text', 'Inline Edit', 'Delete'],
   },
   image: {

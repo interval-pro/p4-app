@@ -1,0 +1,16 @@
+@if (visible) {
+<div
+  class="context-menu"
+  [style]="
+    isNearBottom
+      ? { bottom: viewportHeight - position.y + 'px', left: position.x + 'px' }
+      : { top: position.y + 'px', left: position.x + 'px' }
+  "
+>
+  <ul>
+    @for (action of availableActions; track $index) {
+    <li (click)="onAction(action)">{{ action }}</li>
+    }
+  </ul>
+</div>
+}

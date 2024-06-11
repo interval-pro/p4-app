@@ -1,11 +1,9 @@
 @if (isVisible) {
-<div class="context-menu" [style]="calculatePosition()">
-  <ul>
-    @for (action of availableActions; track $index) {
-    <li (click)="onAction(action)">
-      <img [src]="returnActionIcon(action)" [alt]="action" />{{ action }}
-    </li>
-    }
-  </ul>
-</div>
+<ul id="context-menu" [style]="calculatePosition()">
+  @for (action of availableActions; track $index) {
+  <li (click)="onAction(action)">
+    <img [src]="returnActionIcon(action)" [alt]="action" />{{ action }}
+  </li>
+  }
+</ul>
 }

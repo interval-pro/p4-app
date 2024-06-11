@@ -64,7 +64,17 @@ export class ContextMenuComponent {
     return ['Delete'];
   }
 
+  returnActionIcon(action: string): string {
+    if (action.includes('Regenerate')) return '/assets/icons/regenerate.svg';
+    if (action.includes('Edit')) return '/assets/icons/edit.svg';
+    if (action.includes('Upload')) return '/assets/icons/upload.svg';
+    if (action.includes('Delete')) return '/assets/icons/delete.svg';
+    return '/assets/icons/placeholder.svg';
+  }
+
   onAction(action: string) {
+    this.renderer.removeStyle(this.target, 'filter');
+
     console.log(action, this.target);
   }
 }

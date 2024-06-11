@@ -9,7 +9,10 @@
 >
   <ul>
     @for (action of availableActions; track $index) {
-    <li (click)="onAction(action)">{{ action }}</li>
+    <li (click)="onAction(action)">
+      <img [src]="returnActionIcon(action)" [alt]="action" />{{ action }}
+    </li>
+
     }
   </ul>
 </div>

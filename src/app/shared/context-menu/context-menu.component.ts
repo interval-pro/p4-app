@@ -75,22 +75,26 @@ export class ContextMenuComponent {
         bottom: window.innerHeight - this.position.y + 'px',
         right: window.innerWidth - this.position.x - cursorWidthOffset + 'px',
       };
-    } else if (this.isNearBottom) {
+    }
+
+    if (this.isNearBottom) {
       return {
         bottom: window.innerHeight - this.position.y + 'px',
         left: this.position.x + 'px',
       };
-    } else if (this.isNearRight) {
+    }
+
+    if (this.isNearRight) {
       return {
         top: this.position.y + 'px',
         right: window.innerWidth - this.position.x - cursorWidthOffset + 'px',
       };
-    } else {
-      return {
-        top: this.position.y + 'px',
-        left: this.position.x + 'px',
-      };
     }
+
+    return {
+      top: this.position.y + 'px',
+      left: this.position.x + 'px',
+    };
   }
 
   displayActions(target: HTMLElement) {

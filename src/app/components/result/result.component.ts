@@ -23,6 +23,7 @@ import { ContextMenuComponent } from '../../shared/context-menu/context-menu.com
 })
 export class ResultComponent implements OnInit, OnDestroy {
   result = {} as Result;
+  isContextMenuVisible: boolean = false;
   private resultSubscription: Subscription = new Subscription();
 
   constructor(
@@ -35,13 +36,15 @@ export class ResultComponent implements OnInit, OnDestroy {
   @HostListener('document:mouseover', ['$event'])
   onMouseOver(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target) this.renderer.setStyle(target, 'outline', '2px solid white');
+    if (target && !this.isContextMenuVisible)
+      this.renderer.setStyle(target, 'outline', '2px solid white');
   }
 
   @HostListener('document:mouseout', ['$event'])
   onMouseOut(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target) this.renderer.removeStyle(target, 'outline');
+    if (target && !this.isContextMenuVisible)
+      this.renderer.removeStyle(target, 'outline');
   }
 
   ngOnInit(): void {
@@ -60,6 +63,10 @@ export class ResultComponent implements OnInit, OnDestroy {
       error: console.log,
       complete: console.log,
     });
+  }
+
+  handleVisibilityChange(isVisible: boolean) {
+    this.isContextMenuVisible = isVisible;
   }
 
   applyStyles(styles: string) {

@@ -1,4 +1,10 @@
-import { Component, HostListener, Renderer2 } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Output,
+  Renderer2,
+} from '@angular/core';
 import { actionMappings } from '../action-mappings';
 
 @Component({
@@ -9,6 +15,8 @@ import { actionMappings } from '../action-mappings';
   styleUrl: './context-menu.component.scss',
 })
 export class ContextMenuComponent {
+  @Output() visibilityChange = new EventEmitter<boolean>();
+
   target = {} as HTMLElement;
   position = { x: 0, y: 0 };
   isVisible: boolean = false;
@@ -33,6 +41,7 @@ export class ContextMenuComponent {
     event.preventDefault();
 
     this.target = event.target as HTMLElement;
+    this.renderer.setStyle(this.target, 'filter', 'blur(3px)');
     this.availableActions = this.displayActions(this.target);
 
     this.isNearBottom =
@@ -40,16 +49,20 @@ export class ContextMenuComponent {
 
     this.position.x = event.clientX + window.scrollX;
     this.position.y = event.clientY + window.scrollY;
-    this.renderer.setStyle(this.target, 'filter', 'blur(3px)');
+
     this.isVisible = true;
+    this.visibilityChange.emit(this.isVisible);
   }
 
   close(event: MouseEvent) {
     event.preventDefault();
 
     this.renderer.removeStyle(this.target, 'filter');
+    this.renderer.removeStyle(this.target, 'outline');
     this.target = {} as HTMLElement;
+
     this.isVisible = false;
+    this.visibilityChange.emit(this.isVisible);
   }
 
   displayActions(target: HTMLElement) {

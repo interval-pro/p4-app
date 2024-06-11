@@ -1,7 +1,6 @@
 import {
   Component,
   ElementRef,
-  HostListener,
   OnDestroy,
   OnInit,
   Renderer2,
@@ -33,20 +32,6 @@ export class ResultComponent implements OnInit, OnDestroy {
     private elRef: ElementRef
   ) {}
 
-  @HostListener('document:mouseover', ['$event'])
-  onMouseOver(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    if (target && !this.isContextMenuVisible)
-      this.renderer.setStyle(target, 'outline', '2px solid white');
-  }
-
-  @HostListener('document:mouseout', ['$event'])
-  onMouseOut(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    if (target && !this.isContextMenuVisible)
-      this.renderer.removeStyle(target, 'outline');
-  }
-
   ngOnInit(): void {
     this.resultSubscription = this.subscribeToResult();
   }
@@ -73,6 +58,18 @@ export class ResultComponent implements OnInit, OnDestroy {
     const styleElement = this.renderer.createElement('style');
     styleElement.innerHTML = styles;
     this.renderer.appendChild(this.elRef.nativeElement, styleElement);
+  }
+
+  onMouseOver(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target && !this.isContextMenuVisible)
+      this.renderer.setStyle(target, 'outline', '2px solid white');
+  }
+
+  onMouseOut(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target && !this.isContextMenuVisible)
+      this.renderer.removeStyle(target, 'outline');
   }
 
   ngOnDestroy(): void {

@@ -1,3 +1,8 @@
 <app-context-menu (visibilityChange)="handleVisibilityChange($event)" />
 
-<div id="site" [innerHTML]="result.safeContent"></div>
+<div
+  id="site"
+  [innerHTML]="result.safeContent"
+  (mouseover)="onMouseOver($event)"
+  (mouseout)="onMouseOut($event)"
+></div>

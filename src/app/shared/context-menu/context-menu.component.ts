@@ -74,6 +74,7 @@ export class ContextMenuComponent {
       return {
         bottom: window.innerHeight - this.position.y + 'px',
         right: window.innerWidth - this.position.x - cursorWidthOffset + 'px',
+        'border-radius': '0.5em 0.5em 0 0.5em',
       };
     }
 
@@ -81,6 +82,7 @@ export class ContextMenuComponent {
       return {
         bottom: window.innerHeight - this.position.y + 'px',
         left: this.position.x + 'px',
+        'border-radius': '0.5em 0.5em 0.5em 0',
       };
     }
 
@@ -88,12 +90,14 @@ export class ContextMenuComponent {
       return {
         top: this.position.y + 'px',
         right: window.innerWidth - this.position.x - cursorWidthOffset + 'px',
+        'border-radius': '0.5em 0 0.5em 0.5em',
       };
     }
 
     return {
       top: this.position.y + 'px',
       left: this.position.x + 'px',
+      'border-radius': '0 0.5em 0.5em 0.5em',
     };
   }
 

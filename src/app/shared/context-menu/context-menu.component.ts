@@ -21,8 +21,8 @@ export class ContextMenuComponent {
   position = { x: 0, y: 0 };
   isVisible: boolean = false;
   isNearBottom: boolean = false;
+  isNearRight: boolean = false;
   availableActions: string[] = [];
-  viewportHeight = window.innerHeight;
 
   constructor(private renderer: Renderer2) {}
 
@@ -45,7 +45,9 @@ export class ContextMenuComponent {
     this.availableActions = this.displayActions(this.target);
 
     this.isNearBottom =
-      this.viewportHeight - event.clientY < this.viewportHeight / 5;
+      window.innerHeight - event.clientY < window.innerHeight / 5;
+    this.isNearRight =
+      window.innerWidth - event.clientX < window.innerWidth / 5;
 
     this.position.x = event.clientX + window.scrollX;
     this.position.y = event.clientY + window.scrollY;
@@ -63,6 +65,32 @@ export class ContextMenuComponent {
 
     this.isVisible = false;
     this.visibilityChange.emit(this.isVisible);
+  }
+
+  calculatePosition() {
+    const cursorWidthOffset = 16;
+
+    if (this.isNearBottom && this.isNearRight) {
+      return {
+        bottom: window.innerHeight - this.position.y + 'px',
+        right: window.innerWidth - this.position.x - cursorWidthOffset + 'px',
+      };
+    } else if (this.isNearBottom) {
+      return {
+        bottom: window.innerHeight - this.position.y + 'px',
+        left: this.position.x + 'px',
+      };
+    } else if (this.isNearRight) {
+      return {
+        top: this.position.y + 'px',
+        right: window.innerWidth - this.position.x - cursorWidthOffset + 'px',
+      };
+    } else {
+      return {
+        top: this.position.y + 'px',
+        left: this.position.x + 'px',
+      };
+    }
   }
 
   displayActions(target: HTMLElement) {

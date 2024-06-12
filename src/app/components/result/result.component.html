@@ -1,13 +1,8 @@
-<div id="site">
-  @for (section of result.sections; track $index) {
-  <div class="section-wrapper">
-    <div class="section" [innerHTML]="section.safeContent"></div>
-    <app-button
-      class="btn"
-      text="Regenerate"
-      (click)="regenerateSection(section)"
-    />
-  </div>
+<app-context-menu (visibilityChange)="handleVisibilityChange($event)" />
 
-  }
-</div>
+<div
+  id="site"
+  [innerHTML]="result.safeContent"
+  (mouseover)="onMouseOver($event)"
+  (mouseout)="onMouseOut($event)"
+></div>

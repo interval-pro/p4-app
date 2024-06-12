@@ -63,7 +63,7 @@ export class ResultComponent implements OnInit, OnDestroy {
   onMouseOver(event: MouseEvent) {
     const target = event.target as HTMLElement;
     if (target && !this.isContextMenuVisible)
-      this.renderer.setStyle(target, 'outline', '2px solid white');
+      this.renderer.setStyle(target, 'outline', '2px dashed white');
   }
 
   onMouseOut(event: MouseEvent) {

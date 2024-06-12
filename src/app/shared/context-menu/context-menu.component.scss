@@ -2,7 +2,7 @@
   position: absolute;
   background: white;
   border: 1px solid #ccc;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.3);
   z-index: 1000;
   list-style: none;
 
@@ -12,6 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    transition: scale ease-in-out 0.2s;
 
     &:first-of-type {
       border-radius: inherit;

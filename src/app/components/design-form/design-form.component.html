@@ -3,20 +3,9 @@
   <p id="step">Step 2</p>
 
   <form [formGroup]="designForm">
-
-    <!-- <div class="dropdown">
-      <button class="dropbtn">Fonts</button>
-      <div class="dropdown-content">
-        <button>Serif</button>
-        <button>Sans Serif</button>
-        <button>Monospace</button>
-        <button>Jungle Fever</button>
-      </div>
-    </div> -->
     
     <div class="fonts">
-
-      <label class="label" for="lang">Fonts</label>
+      <label class="label">Fonts</label>
       <div dropdown action="#">
         <div *ngIf="this.companyData.fonts"> Current: {{this.companyData.fonts}}</div>
         <select class="dropbtn" name="languages" id="lang">
@@ -27,20 +16,18 @@
           <option (click)="onClickFont($event)">Jungle Fever</option>
         </select>
       </div>
-
     </div>
 
 
     <div class="colors">Colors</div>
-      
-    <div class="dropdown">
+      <div class="dropdown">
         <div *ngIf="this.companyData.primaryColor"> Current: {{companyData.primaryColor}}</div>
         <div class="color" [style.backgroundColor]="this.companyData.primaryColor" *ngIf="this.companyData.primaryColor">&nbsp;</div>
         <button class="dropbtn">Primary</button>
         <div class="dropdown-content">
           <input (click)="onPrimaryColor($event)" (change)="onPrimaryColor($event)" value="{{companyData.primaryColor}}" type="color" id="colorPicker">
+        </div>
       </div>
-    </div>
     
     <div class="dropdown">
         <div *ngIf="this.companyData.secondaryColor"> Current: {{this.companyData.secondaryColor}}</div>
@@ -60,18 +47,9 @@
       </div>
     </div>
     
-    
-    <!-- <div class="color-picker">
-      <label for="colorPicker"><i class='bx bx-palette'></i>
-        </label>
-      <input type="color" value="#1dbbce" id="colorPicker">
-    </div> -->
-
-
     <div class="toneVoice">
-
-      <label class="label" for="lang">Tone of Voice</label>
-      <div dropdown action="#">
+      <label class="label">Tone of Voice</label>
+      <div dropdown>
         <div *ngIf="this.companyData.toneOfVoice"> Current: {{this.companyData.toneOfVoice}}</div>
         <select class="dropbtn" name="languages" id="lang">
           <option (click)="onClickVoice($event)">Friendly</option>
@@ -81,19 +59,7 @@
           <option (click)="onClickVoice($event)">Professional</option>
         </select>
       </div>
-
     </div>
-
-    <!-- <div class="dropdown">
-      <button class="dropbtn">Tone of Voice</button>
-      <div class="dropdown-content">
-        <button>Friendly</button>
-        <button>Humorous</button>
-        <button>Formal</button>
-        <button>Assertive</button>
-        <button>Professional</button>
-      </div>
-    </div>  -->
 
     <textarea
       id="additionalDesignFeatures"

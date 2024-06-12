@@ -5,7 +5,7 @@
   <form [formGroup]="designForm">
     
     <div class="fonts">
-      <label class="label">Fonts</label>
+      <div class="label">Fonts</div>
       <div dropdown action="#">
         <div *ngIf="this.companyData.fonts"> Current: {{this.companyData.fonts}}</div>
         <select class="dropbtn" name="languages" id="lang">
@@ -48,9 +48,9 @@
     </div>
     
     <div class="toneVoice">
-      <label class="label">Tone of Voice</label>
+      <div class="label">Tone of Voice</div>
       <div dropdown>
-        <div *ngIf="this.companyData.toneOfVoice"> Current: {{this.companyData.toneOfVoice}}</div>
+        <div class="label" *ngIf="this.companyData.toneOfVoice"> Current: {{this.companyData.toneOfVoice}}</div>
         <select class="dropbtn" name="languages" id="lang">
           <option (click)="onClickVoice($event)">Friendly</option>
           <option (click)="onClickVoice($event)">Humorous</option>

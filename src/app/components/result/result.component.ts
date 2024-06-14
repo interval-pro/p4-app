@@ -25,7 +25,6 @@ export class ResultComponent implements OnInit, OnDestroy {
   result = {} as Result;
   event = {} as MouseEvent;
 
-  isContextMenuVisible: boolean = false;
   isEditMode: boolean = false;
   isContextMenuOpen: boolean = false;
 
@@ -66,19 +65,19 @@ export class ResultComponent implements OnInit, OnDestroy {
     this.isEditMode = isToggled;
   }
 
-  closeMenu(close: boolean) {
-    if (close && this.isContextMenuOpen) this.isContextMenuOpen = false;
+  closeContextMenu(shouldClose: boolean) {
+    if (shouldClose && this.isContextMenuOpen) this.isContextMenuOpen = false;
   }
 
   onMouseOver(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target && this.isEditMode && !this.isContextMenuVisible)
+    if (target && this.isEditMode && !this.isContextMenuOpen)
       this.renderer.setStyle(target, 'outline', '2px dashed white');
   }
 
   onMouseOut(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target && this.isEditMode && !this.isContextMenuVisible)
+    if (target && this.isEditMode && !this.isContextMenuOpen)
       this.renderer.removeStyle(target, 'outline');
   }
 

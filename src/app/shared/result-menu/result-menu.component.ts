@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Output,
-  Renderer2,
-} from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ToggleComponent } from '../toggle/toggle.component';
 
 @Component({

@@ -3,7 +3,6 @@
   z-index: 100;
   top: 8em;
   left: 0;
-  cursor: pointer;
 
   #menu-icon {
     width: 3em;
@@ -11,6 +10,7 @@
     background-color: white;
     padding: 0.5em;
     border-radius: 0 1em 1em 0;
+    cursor: pointer;
   }
 
   ul {

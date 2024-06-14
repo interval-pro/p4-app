@@ -3,4 +3,41 @@
   top: 8em;
   left: 0;
   cursor: pointer;
+
+  #menu-icon {
+    width: 3em;
+    aspect-ratio: 1/1;
+    background-color: white;
+    padding: 0.5em;
+    border-radius: 0 1em 1em 0;
+  }
+
+  ul {
+    border: 1px solid #ccc;
+    border-radius: 0 0.5em 0.5em 0.5em;
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    list-style: none;
+    background: white;
+
+    li {
+      padding: 0.5em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      transition: scale ease-in-out 0.2s;
+
+      img {
+        width: 1em;
+        aspect-ratio: 1/1;
+        margin-right: 0.3em;
+      }
+
+      &:hover {
+        background: #eee;
+        scale: 1.05;
+      }
+    }
+  }
 }

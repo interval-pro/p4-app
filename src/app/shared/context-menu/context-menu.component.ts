@@ -16,6 +16,7 @@ import { actionMappings } from '../action-mappings';
 })
 export class ContextMenuComponent {
   @Output() visibilityChange = new EventEmitter<boolean>();
+  @Output() toggleContextMenu = new EventEmitter<boolean>();
 
   target = {} as HTMLElement;
   position = { x: 0, y: 0 };
@@ -54,6 +55,7 @@ export class ContextMenuComponent {
 
     this.isVisible = true;
     this.visibilityChange.emit(this.isVisible);
+    this.toggleContextMenu.emit(this.isVisible);
   }
 
   close(event: MouseEvent) {
@@ -65,6 +67,7 @@ export class ContextMenuComponent {
 
     this.isVisible = false;
     this.visibilityChange.emit(this.isVisible);
+    this.toggleContextMenu.emit(this.isVisible);
   }
 
   calculatePosition() {

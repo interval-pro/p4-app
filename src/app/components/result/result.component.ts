@@ -61,6 +61,9 @@ export class ResultComponent implements OnInit, OnDestroy {
     this.renderer.appendChild(this.elRef.nativeElement, styleElement);
   }
 
+  toggleContextMenu(isVisible: boolean) {
+    this.isContextMenuVisible = isVisible;
+  }
   onMouseOver(event: MouseEvent) {
     const target = event.target as HTMLElement;
     if (target && !this.isContextMenuVisible)

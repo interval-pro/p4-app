@@ -15,7 +15,6 @@ import { actionMappings } from '../action-mappings';
   styleUrl: './context-menu.component.scss',
 })
 export class ContextMenuComponent {
-  @Output() visibilityChange = new EventEmitter<boolean>();
   @Output() toggleContextMenu = new EventEmitter<boolean>();
 
   target = {} as HTMLElement;
@@ -54,7 +53,6 @@ export class ContextMenuComponent {
     this.position.y = event.clientY + window.scrollY;
 
     this.isVisible = true;
-    this.visibilityChange.emit(this.isVisible);
     this.toggleContextMenu.emit(this.isVisible);
   }
 
@@ -66,7 +64,6 @@ export class ContextMenuComponent {
     this.target = {} as HTMLElement;
 
     this.isVisible = false;
-    this.visibilityChange.emit(this.isVisible);
     this.toggleContextMenu.emit(this.isVisible);
   }
 

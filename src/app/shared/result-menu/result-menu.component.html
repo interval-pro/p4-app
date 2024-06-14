@@ -2,7 +2,7 @@
   <img src="/assets/icons/menu.svg" alt="menu" id="menu-icon" />
   <ul>
     <li>
-      <app-toggle />
+      <app-toggle (toggle)="toggleEditMode($event)" />
       Edit Mode
     </li>
     <li>

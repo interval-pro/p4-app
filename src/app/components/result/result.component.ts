@@ -24,6 +24,8 @@ import { ResultMenuComponent } from '../../shared/result-menu/result-menu.compon
 export class ResultComponent implements OnInit, OnDestroy {
   result = {} as Result;
   isContextMenuVisible: boolean = false;
+  isEditMode: boolean = true;
+
   private resultSubscription: Subscription = new Subscription();
 
   constructor(
@@ -51,10 +53,6 @@ export class ResultComponent implements OnInit, OnDestroy {
     });
   }
 
-  handleVisibilityChange(isVisible: boolean) {
-    this.isContextMenuVisible = isVisible;
-  }
-
   applyStyles(styles: string) {
     const styleElement = this.renderer.createElement('style');
     styleElement.innerHTML = styles;
@@ -64,6 +62,11 @@ export class ResultComponent implements OnInit, OnDestroy {
   toggleContextMenu(isVisible: boolean) {
     this.isContextMenuVisible = isVisible;
   }
+
+  toggleEditMode(isToggled: boolean) {
+    this.isEditMode = isToggled;
+  }
+
   onMouseOver(event: MouseEvent) {
     const target = event.target as HTMLElement;
     if (target && !this.isContextMenuVisible)

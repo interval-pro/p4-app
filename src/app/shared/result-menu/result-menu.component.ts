@@ -1,4 +1,10 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  Renderer2,
+} from '@angular/core';
 import { ToggleComponent } from '../toggle/toggle.component';
 
 @Component({
@@ -9,7 +15,12 @@ import { ToggleComponent } from '../toggle/toggle.component';
   styleUrl: './result-menu.component.scss',
 })
 export class ResultMenuComponent {
-  constructor() {}
+  @Output() toggleEdit: EventEmitter<boolean> = new EventEmitter<boolean>(
+    false
+  );
 
+  toggleEditMode(isToggled: boolean) {
+    this.toggleEdit.emit(isToggled);
+  }
   toggleMenu() {}
 }

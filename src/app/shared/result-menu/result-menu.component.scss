@@ -22,11 +22,14 @@
 
     li {
       padding: 0.5em;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       transition: scale ease-in-out 0.2s;
+
+      app-toggle {
+        margin-right: 0.5em;
+      }
 
       img {
         width: 1em;
@@ -34,7 +37,8 @@
         margin-right: 0.3em;
       }
 
-      &:hover {
+      &:not(:first-of-type):hover {
+        cursor: pointer;
         background: #eee;
         scale: 1.05;
       }

@@ -18,14 +18,14 @@ import { actionMappings } from '../action-mappings';
   styleUrl: './context-menu.component.scss',
 })
 export class ContextMenuComponent implements OnChanges {
-  @Output() toggleContextMenu = new EventEmitter<boolean>();
   @Input() isEditMode: boolean = false;
   @Input() isOpen: boolean = false;
   @Input() event = {} as MouseEvent;
 
+  @Output() closeMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+
   target = {} as HTMLElement;
   position = { x: 0, y: 0 };
-  isVisible: boolean = false;
   isNearBottom: boolean = false;
   isNearRight: boolean = false;
   availableActions: string[] = [];
@@ -36,22 +36,12 @@ export class ContextMenuComponent implements OnChanges {
     for (const inputName in changes) {
       if (inputName !== 'isOpen') return;
 
-      const value = changes[inputName].currentValue;
-      if (value) return this.open();
+      const isOpenValue = changes[inputName].currentValue;
+      if (isOpenValue) return this.open();
+
       this.close();
     }
   }
-
-  // @HostListener('document:click', ['$event'])
-  // onDocumentClick(event: MouseEvent) {
-  //   if (this.isVisible) this.close(event);
-  // }
-
-  // @HostListener('document:contextmenu', ['$event'])
-  // onDocumentRightClick(event: MouseEvent) {
-  //   if (this.isVisible) return this.close(event);
-  //   if (this.isEditMode) this.open(event);
-  // }
 
   open() {
     this.target = this.event.target as HTMLElement;
@@ -65,18 +55,12 @@ export class ContextMenuComponent implements OnChanges {
 
     this.position.x = this.event.clientX + window.scrollX;
     this.position.y = this.event.clientY + window.scrollY;
-
-    this.isVisible = true;
-    this.toggleContextMenu.emit(this.isVisible);
   }
 
   close() {
     this.renderer.removeStyle(this.target, 'filter');
     this.renderer.removeStyle(this.target, 'outline');
-    this.target = {} as HTMLElement;
-
-    this.isVisible = false;
-    this.toggleContextMenu.emit(this.isVisible);
+    this.closeMenu.emit(true);
   }
 
   calculatePosition() {
@@ -134,7 +118,7 @@ export class ContextMenuComponent implements OnChanges {
   }
 
   onAction(action: string) {
-    this.renderer.removeStyle(this.target, 'filter');
+    this.close();
 
     console.log(action, this.target);
   }

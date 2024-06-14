@@ -1,4 +1,4 @@
-@if (isVisible) {
+@if (isOpen) {
 <ul id="context-menu" [style]="calculatePosition()">
   @for (action of availableActions; track $index) {
   <li (click)="onAction(action)">

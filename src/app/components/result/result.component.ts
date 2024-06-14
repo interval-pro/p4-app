@@ -62,12 +62,12 @@ export class ResultComponent implements OnInit, OnDestroy {
     this.renderer.appendChild(this.elRef.nativeElement, styleElement);
   }
 
-  toggleContextMenu(isVisible: boolean) {
-    if (this.isEditMode) this.isContextMenuVisible = isVisible;
-  }
-
   toggleEditMode(isToggled: boolean) {
     this.isEditMode = isToggled;
+  }
+
+  closeMenu(close: boolean) {
+    if (close && this.isContextMenuOpen) this.isContextMenuOpen = false;
   }
 
   onMouseOver(event: MouseEvent) {

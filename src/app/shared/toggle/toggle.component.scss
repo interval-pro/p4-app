@@ -1,7 +1,11 @@
+$bg-height: 1.25rem;
+$bg-width: 2.5rem;
+$ball-width: 1.4rem;
+
 .switch {
   position: relative;
-  height: 1.5rem;
-  width: 3rem;
+  height: $bg-height;
+  width: $bg-width;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
@@ -17,11 +21,11 @@
 .switch::before {
   position: absolute;
   content: "";
-  left: calc(1.5rem - 1.6rem);
-  top: calc(1.5rem - 1.6rem);
+  left: calc($bg-height - $ball-width);
+  top: calc($bg-height - $ball-width + 1px);
   display: block;
-  height: 1.6rem;
-  width: 1.6rem;
+  aspect-ratio: 1/1;
+  width: $ball-width;
   cursor: pointer;
   border: 1px solid rgba(100, 116, 139, 0.527);
   border-radius: 9999px;

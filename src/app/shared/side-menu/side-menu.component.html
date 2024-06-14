@@ -1,5 +1,11 @@
 <div id="result-menu-wrapper">
-  <img src="/assets/icons/menu.svg" alt="menu" id="menu-icon" />
+  <img
+    src="/assets/icons/menu.svg"
+    alt="menu"
+    id="menu-icon"
+    (click)="toggleMenu()"
+  />
+  @if (isOpen) {
   <ul>
     <li class="toggle">
       <app-toggle (toggle)="toggleEditMode($event)" />
@@ -19,7 +25,7 @@
         src="/assets/icons/export-img.svg"
         alt="export-img"
       />
-      Export as Image
+      Export as PDF
     </li>
 
     <li class="function">
@@ -40,4 +46,5 @@
       Export as JSON
     </li>
   </ul>
+  }
 </div>

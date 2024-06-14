@@ -9,11 +9,17 @@ import { ToggleComponent } from '../toggle/toggle.component';
   styleUrl: './side-menu.component.scss',
 })
 export class SideMenuComponent {
+  isOpen: boolean = false;
+
   @Output() toggleEdit: EventEmitter<boolean> = new EventEmitter<boolean>(
     false
   );
 
   toggleEditMode(isToggled: boolean) {
     this.toggleEdit.emit(isToggled);
+  }
+
+  toggleMenu() {
+    this.isOpen = !this.isOpen;
   }
 }

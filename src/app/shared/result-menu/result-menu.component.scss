@@ -38,7 +38,7 @@
         margin-right: 0.3em;
       }
 
-      &:not(:first-of-type):hover {
+      &.function:hover {
         cursor: pointer;
         background: #eee;
         scale: 1.05;

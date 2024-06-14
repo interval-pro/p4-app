@@ -24,7 +24,7 @@ import { ResultMenuComponent } from '../../shared/result-menu/result-menu.compon
 export class ResultComponent implements OnInit, OnDestroy {
   result = {} as Result;
   isContextMenuVisible: boolean = false;
-  isEditMode: boolean = true;
+  isEditMode: boolean = false;
 
   private resultSubscription: Subscription = new Subscription();
 
@@ -60,7 +60,7 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   toggleContextMenu(isVisible: boolean) {
-    this.isContextMenuVisible = isVisible;
+    if (this.isEditMode) this.isContextMenuVisible = isVisible;
   }
 
   toggleEditMode(isToggled: boolean) {
@@ -69,13 +69,13 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   onMouseOver(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target && !this.isContextMenuVisible)
+    if (target && this.isEditMode && !this.isContextMenuVisible)
       this.renderer.setStyle(target, 'outline', '2px dashed white');
   }
 
   onMouseOut(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target && !this.isContextMenuVisible)
+    if (target && this.isEditMode && !this.isContextMenuVisible)
       this.renderer.removeStyle(target, 'outline');
   }
 

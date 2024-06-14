@@ -1,4 +1,7 @@
-<app-context-menu (toggleContextMenu)="toggleContextMenu($event)" />
+<app-context-menu
+  [isEditMode]="isEditMode"
+  (toggleContextMenu)="toggleContextMenu($event)"
+/>
 <app-result-menu (toggleEdit)="toggleEditMode($event)" />
 
 <div

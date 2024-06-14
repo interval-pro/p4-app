@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   HostListener,
+  Input,
   Output,
   Renderer2,
 } from '@angular/core';
@@ -16,6 +17,7 @@ import { actionMappings } from '../action-mappings';
 })
 export class ContextMenuComponent {
   @Output() toggleContextMenu = new EventEmitter<boolean>();
+  @Input() isEditMode: boolean = false;
 
   target = {} as HTMLElement;
   position = { x: 0, y: 0 };
@@ -34,7 +36,7 @@ export class ContextMenuComponent {
   @HostListener('document:contextmenu', ['$event'])
   onDocumentRightClick(event: MouseEvent) {
     if (this.isVisible) return this.close(event);
-    this.open(event);
+    if (this.isEditMode) this.open(event);
   }
 
   open(event: MouseEvent) {

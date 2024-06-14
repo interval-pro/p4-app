@@ -16,5 +16,4 @@ export class ResultMenuComponent {
   toggleEditMode(isToggled: boolean) {
     this.toggleEdit.emit(isToggled);
   }
-  toggleMenu() {}
 }

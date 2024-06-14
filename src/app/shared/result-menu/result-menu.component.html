@@ -1,24 +1,38 @@
-<div id="result-menu-wrapper" (click)="toggleMenu()">
+<div id="result-menu-wrapper">
   <img src="/assets/icons/menu.svg" alt="menu" id="menu-icon" />
   <ul>
     <li class="toggle">
       <app-toggle (toggle)="toggleEditMode($event)" />
       Edit Mode
+      <img class="info" src="/assets/icons/info.svg" alt="info" />
+      <p class="info">Right click on an element in the page to edit</p>
     </li>
     <li class="toggle">
       <app-toggle />
       Mobile Version
     </li>
     <li class="function">
-      <img src="/assets/icons/export-img.svg" alt="export-img" />
+      <img
+        class="function-icon"
+        src="/assets/icons/export-img.svg"
+        alt="export-img"
+      />
       Export as Image
     </li>
     <li class="function">
-      <img src="/assets/icons/export-html.svg" alt="export-html" />
+      <img
+        class="function-icon"
+        src="/assets/icons/export-html.svg"
+        alt="export-html"
+      />
       Export as HTML
     </li>
     <li class="function">
-      <img src="/assets/icons/export-json.svg" alt="export-json" />
+      <img
+        class="function-icon"
+        src="/assets/icons/export-json.svg"
+        alt="export-json"
+      />
       Export as JSON
     </li>
   </ul>

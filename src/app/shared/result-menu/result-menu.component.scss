@@ -1,3 +1,5 @@
+@import "../../../colors";
+
 #result-menu-wrapper {
   position: fixed;
   z-index: 100;
@@ -22,17 +24,46 @@
     background: white;
 
     li {
+      position: relative;
       padding: 0.5em;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       transition: scale ease-in-out 0.2s;
 
+      img.info {
+        position: absolute;
+        right: 1.5em;
+        top: 0.5em;
+        width: 0.8em;
+        aspect-ratio: 1/1;
+        margin-right: 0.3em;
+        cursor: pointer;
+
+        &:hover ~ p.info {
+          display: block;
+        }
+      }
+
+      p.info {
+        display: none;
+        position: absolute;
+        top: -3.6em;
+        right: -8em;
+        background: white;
+        padding: 0.3em;
+        border-radius: 0.5em 0.5em 0.5em 0;
+        box-shadow: 0 0 0.5em rgb(0, 0, 0, 0.3);
+        max-width: 14ch;
+        text-align: center;
+        color: $light;
+      }
+
       app-toggle {
         margin-right: 0.5em;
       }
 
-      img {
+      img.function-icon {
         width: 1em;
         aspect-ratio: 1/1;
         margin-right: 0.3em;

@@ -23,8 +23,11 @@ import { ResultMenuComponent } from '../../shared/result-menu/result-menu.compon
 })
 export class ResultComponent implements OnInit, OnDestroy {
   result = {} as Result;
+  event = {} as MouseEvent;
+
   isContextMenuVisible: boolean = false;
   isEditMode: boolean = false;
+  isContextMenuOpen: boolean = false;
 
   private resultSubscription: Subscription = new Subscription();
 
@@ -77,6 +80,21 @@ export class ResultComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLElement;
     if (target && this.isEditMode && !this.isContextMenuVisible)
       this.renderer.removeStyle(target, 'outline');
+  }
+
+  onRightClick(event: MouseEvent) {
+    if (this.isEditMode) event.preventDefault();
+
+    if (this.isContextMenuOpen) return;
+
+    if (this.isEditMode && event.target) {
+      this.isContextMenuOpen = true;
+      this.event = event;
+    }
+  }
+
+  onClick(event: MouseEvent) {
+    if (this.isContextMenuOpen) this.isContextMenuOpen = false;
   }
 
   ngOnDestroy(): void {

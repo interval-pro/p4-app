@@ -1,5 +1,7 @@
 <app-context-menu
   [isEditMode]="isEditMode"
+  [isOpen]="isContextMenuOpen"
+  [event]="event"
   (toggleContextMenu)="toggleContextMenu($event)"
 />
 <app-result-menu (toggleEdit)="toggleEditMode($event)" />
@@ -9,4 +11,6 @@
   [innerHTML]="result.safeContent"
   (mouseover)="onMouseOver($event)"
   (mouseout)="onMouseOut($event)"
+  (contextmenu)="onRightClick($event)"
+  (click)="onClick($event)"
 ></div>

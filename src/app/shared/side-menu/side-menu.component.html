@@ -3,10 +3,11 @@
     src="/assets/icons/menu.svg"
     alt="menu"
     id="menu-icon"
+    [style.filter]="isOpen ? 'brightness(0.9)' : ''"
     (click)="toggleMenu()"
   />
-  @if (isOpen) {
-  <ul>
+
+  <ul [style.display]="isOpen ? 'block' : 'none'">
     <li class="toggle">
       <app-toggle (toggle)="toggleEditMode($event)" />
       Edit Mode
@@ -46,5 +47,4 @@
       Export as JSON
     </li>
   </ul>
-  }
 </div>

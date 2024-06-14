@@ -12,12 +12,12 @@ import { ApiService } from '../../services/api.service';
 import { Result } from '../../models/result.model';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
-import { ResultMenuComponent } from '../../shared/result-menu/result-menu.component';
+import { SideMenuComponent } from '../../shared/side-menu/side-menu.component';
 
 @Component({
   selector: 'app-result',
   standalone: true,
-  imports: [ButtonComponent, ContextMenuComponent, ResultMenuComponent],
+  imports: [ButtonComponent, ContextMenuComponent, SideMenuComponent],
   templateUrl: './result.component.html',
   styleUrl: './result.component.scss',
 })

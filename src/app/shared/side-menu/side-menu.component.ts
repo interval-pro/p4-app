@@ -2,13 +2,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { ToggleComponent } from '../toggle/toggle.component';
 
 @Component({
-  selector: 'app-result-menu',
+  selector: 'app-side-menu',
   standalone: true,
   imports: [ToggleComponent],
-  templateUrl: './result-menu.component.html',
-  styleUrl: './result-menu.component.scss',
+  templateUrl: './side-menu.component.html',
+  styleUrl: './side-menu.component.scss',
 })
-export class ResultMenuComponent {
+export class SideMenuComponent {
   @Output() toggleEdit: EventEmitter<boolean> = new EventEmitter<boolean>(
     false
   );

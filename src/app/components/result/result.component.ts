@@ -9,26 +9,33 @@ import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { ApiService } from '../../services/api.service';
-import { Result } from '../../models/result.model';
+import { Layout, Result } from '../../models/api.interfaces';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 import { SideMenuComponent } from '../../shared/side-menu/side-menu.component';
+import { LoaderComponent } from '../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-result',
   standalone: true,
-  imports: [ButtonComponent, ContextMenuComponent, SideMenuComponent],
+  imports: [
+    ButtonComponent,
+    ContextMenuComponent,
+    SideMenuComponent,
+    LoaderComponent,
+  ],
   templateUrl: './result.component.html',
   styleUrl: './result.component.scss',
 })
 export class ResultComponent implements OnInit, OnDestroy {
-  result = {} as Result;
+  layout = {} as Layout;
   event = {} as MouseEvent;
 
   isEditMode: boolean = false;
   isContextMenuOpen: boolean = false;
+  isLoadingSections: boolean = true;
 
-  private resultSubscription: Subscription = new Subscription();
+  private layoutSubscription: Subscription = new Subscription();
 
   constructor(
     private api: ApiService,
@@ -38,17 +45,14 @@ export class ResultComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.resultSubscription = this.subscribeToResult();
+    this.layoutSubscription = this.subscribeToLayout();
   }
 
-  subscribeToResult(): Subscription {
-    return this.api.getMockedData().subscribe({
+  subscribeToLayout(): Subscription {
+    return this.api.getMockedLayout().subscribe({
       next: (res) => {
-        this.result = res;
-        this.result.safeContent = this.sanitizer.bypassSecurityTrustHtml(
-          this.result.body
-        );
-        this.applyStyles(this.result.styles);
+        this.layout = res;
+        console.log(this.layout);
       },
       error: console.log,
       complete: console.log,
@@ -61,12 +65,10 @@ export class ResultComponent implements OnInit, OnDestroy {
     this.renderer.appendChild(this.elRef.nativeElement, styleElement);
   }
 
-  toggleEditMode(isToggled: boolean) {
   onToggleEditMode(isToggled: boolean) {
     this.isEditMode = isToggled;
   }
 
-  closeContextMenu(shouldClose: boolean) {
   onCloseContextMenu(shouldClose: boolean) {
     if (shouldClose && this.isContextMenuOpen) this.isContextMenuOpen = false;
   }
@@ -99,6 +101,6 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.resultSubscription.unsubscribe();
+    this.layoutSubscription.unsubscribe();
   }
 }

@@ -1,5 +1,5 @@
 {
   "sectionId": "header",
-  "HTML": "<header id='header'><div class='container'><img src='https://dummyimage.com/150x50/0000FF' alt='Energy Drink Logo' id='logo'><nav><ul><li><a href='#'>Home</a></li><li><a href='#'>About Us</a></li><li><a href='#'>The Formula</a></li><li><a href='#'>For Athletes</a></li><li><a href='#'>Contact</a></li></ul></nav></div></header>",
+  "HTML": "<div class='container'><img src='https://dummyimage.com/150x50/0000FF' alt='Energy Drink Logo' id='logo'><nav><ul><li><a href='#'>Home</a></li><li><a href='#'>About Us</a></li><li><a href='#'>The Formula</a></li><li><a href='#'>For Athletes</a></li><li><a href='#'>Contact</a></li></ul></nav></div>",
   "CSS": "#header{background: linear-gradient(135deg, #0a0a0a, #1c1c1c);padding: 20px 0;box-shadow: 0 4px 6px rgba(0,0,0,0.1);}.container{display: flex;justify-content: space-between;align-items: center;margin: 0 auto;padding: 0 20px;}.container #logo{height: 50px;}.container nav ul{display: flex;gap: 20px;list-style: none;padding: 0;margin: 0;}.container nav ul li a{color: #FFF;text-decoration: none;font-family: 'Futura', sans-serif;font-size: 16px;padding: 10px 15px;transition: 0.3s ease;}.container nav ul li a:hover{color: #FF4500;}"
 }

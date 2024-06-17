@@ -3,8 +3,10 @@
   [isOpen]="isContextMenuOpen"
   [event]="event"
   (closeMenu)="closeContextMenu($event)"
+  (closeMenu)="onCloseContextMenu($event)"
 />
 <app-side-menu (toggleEdit)="toggleEditMode($event)" />
+<app-side-menu (toggleEdit)="onToggleEditMode($event)" />
 
 <div
   id="site"

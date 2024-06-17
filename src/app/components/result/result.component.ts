@@ -62,10 +62,12 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   toggleEditMode(isToggled: boolean) {
+  onToggleEditMode(isToggled: boolean) {
     this.isEditMode = isToggled;
   }
 
   closeContextMenu(shouldClose: boolean) {
+  onCloseContextMenu(shouldClose: boolean) {
     if (shouldClose && this.isContextMenuOpen) this.isContextMenuOpen = false;
   }
 

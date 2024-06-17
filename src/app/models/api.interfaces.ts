@@ -1,4 +1,3 @@
-import { SafeHtml } from '@angular/platform-browser';
 export interface Layout {
   inputs: string;
   mainStyle: string;
@@ -8,6 +7,7 @@ export interface Layout {
 export interface LayoutSection {
   sectionId: string;
   components: LayoutComponent[];
+  isLoading?: boolean;
 }
 
 export interface LayoutComponent {
@@ -17,9 +17,9 @@ export interface LayoutComponent {
 }
 
 export interface GeneratedSection {
+  sectionId: string;
   HTML: string;
   CSS: string;
-  safeContent?: SafeHtml;
 }
 
 export interface FinishedSection extends LayoutSection, GeneratedSection {}

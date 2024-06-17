@@ -1,4 +1,5 @@
 {
+  "sectionId": "hero",
   "HTML": "<section id='hero'><h1>Unleash Your Inner Power</h1><h3>Introducing the ultimate energy drink for champions.</h3><button>Try It Now</button></section>",
   "CSS": "#hero{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg, #0D0D0D, #1A1A1A);text-align:center;padding:20px;}#hero h1{font-family:'Futura', sans-serif;font-size:3em;color:#FFA500;margin:0;text-transform:uppercase;}#hero h3{font-family:'Futura', sans-serif;font-size:1.5em;color:#1E90FF;margin:20px 0;}#hero button{font-family:'Impact', sans-serif;font-size:1.2em;color:#fff;background:#FFA500;border:none;padding:15px 30px;margin-top:30px;cursor:pointer;transition:background 0.3s,border-radius 0.3s;}#hero button:hover{background:#FF4500;border-radius:10px;}"
 }

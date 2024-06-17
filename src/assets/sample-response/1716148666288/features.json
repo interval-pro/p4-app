@@ -1,4 +1,5 @@
 {
+  "sectionId": "features",
   "HTML": "<section id=\"features\"><h2>The Boost Formula</h2><p>Our unique blend gives you the energy and focus you need to exceed your limits.</p><ul><li>Enhanced endurance</li><li>Improved mental focus</li><li>Faster recovery</li><li>Natural ingredients</li></ul></section>",
   "CSS": "#features{background:linear-gradient(135deg, #000428 0%,#004e92 100%);color:#fff;padding:50px 20px;text-align:center}#features h2{font-family:'Impact','Futura',sans-serif;font-size:2.5em;color:#ffa500;margin-bottom:30px;text-transform:uppercase;letter-spacing:2px}#features p{font-size:1.2em;margin-bottom:20px;line-height:1.5em;max-width:700px;margin:auto}#features ul{list-style:none;padding:0;font-family:'Futura',sans-serif}#features ul li{background:#ffa500;padding:10px;margin:10px 0;font-size:1.1em;border-radius:30px;box-shadow:0 4px 8px rgba(0,0,0,0.3)}#features ul li:hover{background:#e69500;cursor:pointer;transition:background 0.3s ease-in-out}"
 }

@@ -21,21 +21,33 @@ export class ApiService {
     return this.http.get<Layout>(this.layoutURL);
   }
 
-  private sectionsURLs = [
-    'assets/sample-response/1716148666288/header.json',
-    'assets/sample-response/1716148666288/hero.json',
-    'assets/sample-response/1716148666288/features.json',
-    'assets/sample-response/1716148666288/testimonials.json',
-    'assets/sample-response/1716148666288/footer.json',
-  ];
+  getSection(sectionId: string): Observable<GeneratedSection> {
+    let url = '';
 
-  private currentSection: number = 0;
+    for (const section of sectionsURLs) {
+      if (sectionId == section.sectionId) url = section.url;
+    }
 
-  getSection(): Observable<GeneratedSection> {
-    if (this.currentSection > this.sectionsURLs.length) this.currentSection = 0;
-
-    return this.http.get<GeneratedSection>(
-      this.sectionsURLs[this.currentSection++]
-    );
+    return this.http.post<GeneratedSection>(url, sectionId);
   }
 }
+
+const sectionsURLs = [
+  {
+    sectionId: 'header',
+    url: 'assets/sample-response/1716148666288/header.json',
+  },
+  { sectionId: 'hero', url: 'assets/sample-response/1716148666288/hero.json' },
+  {
+    sectionId: 'features',
+    url: 'assets/sample-response/1716148666288/features.json',
+  },
+  {
+    sectionId: 'testimonials',
+    url: 'assets/sample-response/1716148666288/testimonials.json',
+  },
+  {
+    sectionId: 'footer',
+    url: 'assets/sample-response/1716148666288/footer.json',
+  },
+];

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { FormService } from './form.service';
 import { CompanyData } from '../models/company-data.model';
-import { Result } from '../models/result.model';
+import { Layout, Result } from '../models/api.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +21,11 @@ export class ApiService {
     this.companyData = this.fs.getCompanyData();
 
     return this.http.post<Result>(this.mockedApiUrl, this.companyData);
+  }
+
+  private layoutURL = 'assets/sample-response/layout.json';
+
+  getMockedLayout(): Observable<Layout> {
+    return this.http.get<Layout>(this.layoutURL);
   }
 }

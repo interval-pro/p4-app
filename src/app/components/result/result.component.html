@@ -4,7 +4,10 @@
   [event]="event"
   (closeMenu)="onCloseContextMenu($event)"
 />
-<app-side-menu (toggleEdit)="onToggleEditMode($event)" />
+<app-side-menu
+  [isLoadingResultSections]="isLoadingSections"
+  (toggleEdit)="onToggleEditMode($event)"
+/>
 
 <div
   id="site"

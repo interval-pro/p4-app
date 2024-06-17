@@ -4,6 +4,7 @@
     alt="menu"
     id="menu-icon"
     [style.filter]="isOpen ? 'brightness(0.95)' : ''"
+    [class.unavailable]="isLoadingResultSections"
     (click)="toggleMenu()"
   />
 

@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { ApiService } from '../../services/api.service';
-import { Layout, Result } from '../../models/api.interfaces';
+import { Layout } from '../../models/api.interfaces';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 import { SideMenuComponent } from '../../shared/side-menu/side-menu.component';

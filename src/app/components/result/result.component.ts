@@ -3,10 +3,11 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
+  QueryList,
   Renderer2,
+  ViewChildren,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import { ApiService } from '../../services/api.service';
 import { FinishedSection, Layout } from '../../models/api.interfaces';
@@ -28,6 +29,8 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
   styleUrl: './result.component.scss',
 })
 export class ResultComponent implements OnInit, OnDestroy {
+  @ViewChildren('section') sectionElements = {} as QueryList<ElementRef>;
+
   layout = {} as Layout;
   event = {} as MouseEvent;
   sections: Partial<FinishedSection>[] = [];
@@ -41,7 +44,6 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   constructor(
     private api: ApiService,
-    private sanitizer: DomSanitizer,
     private renderer: Renderer2,
     private elRef: ElementRef
   ) {}
@@ -54,8 +56,9 @@ export class ResultComponent implements OnInit, OnDestroy {
     return this.api.getMockedLayout().subscribe({
       next: (layout) => {
         this.layout = layout;
+        layout.sections.forEach((s) => (s.isLoading = true));
         this.sections = layout.sections;
-        setTimeout(() => this.callAllSectionSubscriptions(), 5000);
+        this.callAllSectionSubscriptions();
       },
       error: console.log,
       complete: console.log,
@@ -63,15 +66,35 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   callAllSectionSubscriptions() {
-    for (const section of this.layout.sections) {
-      this.sectionSubscriptions.push(this.subscribeToSection());
+    for (const section of this.sections) {
+      const timeout: number = 1000 + Math.random() * (10000 - 1000);
+
+      setTimeout(
+        () => this.sectionSubscriptions.push(this.subscribeToSection(section)),
+        timeout
+      );
     }
+    // this.isLoadingSections = false;
   }
 
-  subscribeToSection(): Subscription {
-    return this.api.getSection().subscribe({
-      next: (section) => {
-        console.log(section);
+  subscribeToSection(currentSection: Partial<FinishedSection>): Subscription {
+    if (!currentSection.sectionId) return new Subscription();
+
+    return this.api.getSection(currentSection.sectionId).subscribe({
+      next: (sectionContent) => {
+        this.sectionElements.forEach((el) => {
+          if (el.nativeElement.id == sectionContent.sectionId) {
+            el.nativeElement.innerHTML = sectionContent.HTML;
+
+            const styleEl = this.renderer.createElement('style');
+            styleEl.innerHTML = sectionContent.CSS;
+            this.renderer.appendChild(el.nativeElement, styleEl);
+
+            currentSection.HTML = sectionContent.HTML;
+            currentSection.CSS = sectionContent.CSS;
+            currentSection.isLoading = false;
+          }
+        });
       },
       error: console.log,
       complete: console.log,

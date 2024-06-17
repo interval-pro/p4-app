@@ -12,17 +12,22 @@ import { ApiService } from '../../services/api.service';
 import { Result } from '../../models/result.model';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
+import { SideMenuComponent } from '../../shared/side-menu/side-menu.component';
 
 @Component({
   selector: 'app-result',
   standalone: true,
-  imports: [ButtonComponent, ContextMenuComponent],
+  imports: [ButtonComponent, ContextMenuComponent, SideMenuComponent],
   templateUrl: './result.component.html',
   styleUrl: './result.component.scss',
 })
 export class ResultComponent implements OnInit, OnDestroy {
   result = {} as Result;
-  isContextMenuVisible: boolean = false;
+  event = {} as MouseEvent;
+
+  isEditMode: boolean = false;
+  isContextMenuOpen: boolean = false;
+
   private resultSubscription: Subscription = new Subscription();
 
   constructor(
@@ -50,26 +55,45 @@ export class ResultComponent implements OnInit, OnDestroy {
     });
   }
 
-  handleVisibilityChange(isVisible: boolean) {
-    this.isContextMenuVisible = isVisible;
-  }
-
   applyStyles(styles: string) {
     const styleElement = this.renderer.createElement('style');
     styleElement.innerHTML = styles;
     this.renderer.appendChild(this.elRef.nativeElement, styleElement);
   }
 
+  toggleEditMode(isToggled: boolean) {
+    this.isEditMode = isToggled;
+  }
+
+  closeContextMenu(shouldClose: boolean) {
+    if (shouldClose && this.isContextMenuOpen) this.isContextMenuOpen = false;
+  }
+
   onMouseOver(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target && !this.isContextMenuVisible)
+    if (target && this.isEditMode && !this.isContextMenuOpen)
       this.renderer.setStyle(target, 'outline', '2px dashed white');
   }
 
   onMouseOut(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target && !this.isContextMenuVisible)
+    if (target && this.isEditMode && !this.isContextMenuOpen)
       this.renderer.removeStyle(target, 'outline');
+  }
+
+  onRightClick(event: MouseEvent) {
+    if (this.isEditMode) event.preventDefault();
+
+    if (this.isContextMenuOpen) return;
+
+    if (this.isEditMode && event.target) {
+      this.isContextMenuOpen = true;
+      this.event = event;
+    }
+  }
+
+  onClick(event: MouseEvent) {
+    if (this.isContextMenuOpen) this.isContextMenuOpen = false;
   }
 
   ngOnDestroy(): void {

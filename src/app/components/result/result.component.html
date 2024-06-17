@@ -1,8 +1,16 @@
-<app-context-menu (visibilityChange)="handleVisibilityChange($event)" />
+<app-context-menu
+  [isEditMode]="isEditMode"
+  [isOpen]="isContextMenuOpen"
+  [event]="event"
+  (closeMenu)="closeContextMenu($event)"
+/>
+<app-side-menu (toggleEdit)="toggleEditMode($event)" />
 
 <div
   id="site"
   [innerHTML]="result.safeContent"
   (mouseover)="onMouseOver($event)"
   (mouseout)="onMouseOut($event)"
+  (contextmenu)="onRightClick($event)"
+  (click)="onClick($event)"
 ></div>

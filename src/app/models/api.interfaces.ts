@@ -21,3 +21,5 @@ export interface GeneratedSection {
   CSS: string;
   safeContent?: SafeHtml;
 }
+
+export interface FinishedSection extends LayoutSection, GeneratedSection {}

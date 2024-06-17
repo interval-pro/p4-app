@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { ApiService } from '../../services/api.service';
-import { Layout } from '../../models/api.interfaces';
+import { FinishedSection, Layout } from '../../models/api.interfaces';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 import { SideMenuComponent } from '../../shared/side-menu/side-menu.component';
@@ -30,12 +30,14 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 export class ResultComponent implements OnInit, OnDestroy {
   layout = {} as Layout;
   event = {} as MouseEvent;
+  sections: Partial<FinishedSection>[] = [];
 
   isEditMode: boolean = false;
   isContextMenuOpen: boolean = false;
   isLoadingSections: boolean = true;
 
   private layoutSubscription: Subscription = new Subscription();
+  private sectionSubscriptions: Subscription[] = new Array();
 
   constructor(
     private api: ApiService,
@@ -50,9 +52,26 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   subscribeToLayout(): Subscription {
     return this.api.getMockedLayout().subscribe({
-      next: (res) => {
-        this.layout = res;
-        console.log(this.layout);
+      next: (layout) => {
+        this.layout = layout;
+        this.sections = layout.sections;
+        setTimeout(() => this.callAllSectionSubscriptions(), 5000);
+      },
+      error: console.log,
+      complete: console.log,
+    });
+  }
+
+  callAllSectionSubscriptions() {
+    for (const section of this.layout.sections) {
+      this.sectionSubscriptions.push(this.subscribeToSection());
+    }
+  }
+
+  subscribeToSection(): Subscription {
+    return this.api.getSection().subscribe({
+      next: (section) => {
+        console.log(section);
       },
       error: console.log,
       complete: console.log,
@@ -102,5 +121,9 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.layoutSubscription.unsubscribe();
+
+    for (const subsription of this.sectionSubscriptions) {
+      subsription.unsubscribe();
+    }
   }
 }

@@ -21,12 +21,12 @@ import { FinishedSection, GeneratedSection } from '../../models/api.interfaces';
   styleUrl: './result-section.component.scss',
 })
 export class ResultSectionComponent implements OnInit, OnDestroy {
-  @Input() section: Partial<FinishedSection> = {};
+  @Input() section = {} as FinishedSection;
   @Output() loadedSection: EventEmitter<boolean> = new EventEmitter<boolean>(
     false
   );
 
-  sectionSubscription: Subscription = new Subscription();
+  private sectionSubscription: Subscription = new Subscription();
 
   constructor(
     private api: ApiService,
@@ -42,8 +42,6 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
   }
 
   subscribeToSection(): Subscription {
-    if (!this.section.sectionId) return new Subscription();
-
     return this.api.getSection(this.section.sectionId).subscribe({
       next: (sectionContent) => {
         this.applySectionMarkup(sectionContent, this.section);

@@ -6,66 +6,74 @@ import {
   Renderer2,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
 
-import { ApiService } from '../../services/api.service';
-import { Result } from '../../models/result.model';
+import { Layout } from '../../models/api.interfaces';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 import { SideMenuComponent } from '../../shared/side-menu/side-menu.component';
+import { LoaderComponent } from '../../shared/loader/loader.component';
+import { ResultSectionComponent } from '../result-section/result-section.component';
+import { ApiService } from '../../services/api.service';
+import { StylesService } from '../../services/styles.service';
 
 @Component({
   selector: 'app-result',
   standalone: true,
-  imports: [ButtonComponent, ContextMenuComponent, SideMenuComponent],
+  imports: [
+    ButtonComponent,
+    ContextMenuComponent,
+    SideMenuComponent,
+    LoaderComponent,
+    ResultSectionComponent,
+  ],
   templateUrl: './result.component.html',
   styleUrl: './result.component.scss',
 })
 export class ResultComponent implements OnInit, OnDestroy {
-  result = {} as Result;
+  layout = {} as Layout;
   event = {} as MouseEvent;
 
   isEditMode: boolean = false;
   isContextMenuOpen: boolean = false;
+  isLoadingSections: boolean = true;
+  loadedSections: number = 0;
 
-  private resultSubscription: Subscription = new Subscription();
+  private layoutSubscription: Subscription = new Subscription();
 
   constructor(
     private api: ApiService,
-    private sanitizer: DomSanitizer,
+    private styles: StylesService,
     private renderer: Renderer2,
     private elRef: ElementRef
   ) {}
 
   ngOnInit(): void {
-    this.resultSubscription = this.subscribeToResult();
+    this.layoutSubscription = this.subscribeToLayout();
   }
 
-  subscribeToResult(): Subscription {
-    return this.api.getMockedData().subscribe({
-      next: (res) => {
-        this.result = res;
-        this.result.safeContent = this.sanitizer.bypassSecurityTrustHtml(
-          this.result.body
-        );
-        this.applyStyles(this.result.styles);
+  subscribeToLayout(): Subscription {
+    return this.api.getMockedLayout().subscribe({
+      next: (layout) => {
+        this.layout = layout;
+        layout.sections.forEach((s) => (s.isLoading = true));
+        this.styles.createAndAppendStyle(this.elRef, layout.mainStyle);
       },
       error: console.log,
       complete: console.log,
     });
   }
 
-  applyStyles(styles: string) {
-    const styleElement = this.renderer.createElement('style');
-    styleElement.innerHTML = styles;
-    this.renderer.appendChild(this.elRef.nativeElement, styleElement);
+  onLoadedSection(isLoaded: boolean) {
+    if (isLoaded) this.loadedSections++;
+    if (this.loadedSections == this.layout.sections.length)
+      this.isLoadingSections = false;
   }
 
-  toggleEditMode(isToggled: boolean) {
+  onToggleEditMode(isToggled: boolean) {
     this.isEditMode = isToggled;
   }
 
-  closeContextMenu(shouldClose: boolean) {
+  onCloseContextMenu(shouldClose: boolean) {
     if (shouldClose && this.isContextMenuOpen) this.isContextMenuOpen = false;
   }
 
@@ -97,6 +105,6 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.resultSubscription.unsubscribe();
+    this.layoutSubscription.unsubscribe();
   }
 }

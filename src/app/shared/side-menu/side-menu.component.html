@@ -1,9 +1,10 @@
-<div id="result-menu-wrapper">
+<div id="side-menu-wrapper">
   <img
     src="/assets/icons/menu.svg"
     alt="menu"
     id="menu-icon"
     [style.filter]="isOpen ? 'brightness(0.95)' : ''"
+    [class.unavailable]="isLoadingResultSections"
     (click)="toggleMenu()"
   />
 

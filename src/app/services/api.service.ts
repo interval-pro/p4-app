@@ -4,7 +4,11 @@ import { Observable } from 'rxjs';
 
 import { FormService } from './form.service';
 import { CompanyData } from '../models/company-data.model';
-import { Result } from '../models/result.model';
+import {
+  FinishedSection,
+  GeneratedSection,
+  Layout,
+} from '../models/api.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +19,39 @@ export class ApiService {
   constructor(private http: HttpClient, private fs: FormService) {}
 
   // Mocking response for development purposes
-  private mockedApiUrl = 'assets/mockedAPIresponse1716148666288.json';
+  private layoutURL = 'assets/sample-response/layout.json';
 
-  getMockedData(): Observable<Result> {
-    this.companyData = this.fs.getCompanyData();
+  getMockedLayout(): Observable<Layout> {
+    return this.http.get<Layout>(this.layoutURL);
+  }
 
-    return this.http.post<Result>(this.mockedApiUrl, this.companyData);
+  getSection(section: Partial<FinishedSection>): Observable<GeneratedSection> {
+    let url = '';
+
+    for (const sectionURL of sectionsURLs) {
+      if (sectionURL.sectionId == section.sectionId) url = sectionURL.url;
+    }
+
+    return this.http.post<GeneratedSection>(url, section);
   }
 }
+
+const sectionsURLs = [
+  {
+    sectionId: 'header',
+    url: 'assets/sample-response/1716148666288/header.json',
+  },
+  { sectionId: 'hero', url: 'assets/sample-response/1716148666288/hero.json' },
+  {
+    sectionId: 'features',
+    url: 'assets/sample-response/1716148666288/features.json',
+  },
+  {
+    sectionId: 'testimonials',
+    url: 'assets/sample-response/1716148666288/testimonials.json',
+  },
+  {
+    sectionId: 'footer',
+    url: 'assets/sample-response/1716148666288/footer.json',
+  },
+];

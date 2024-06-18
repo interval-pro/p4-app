@@ -7,10 +7,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { FinishedSection, GeneratedSection } from '../../models/api.interfaces';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ApiService } from '../../services/api.service';
-import { Subscription } from 'rxjs';
-import { FinishedSection, GeneratedSection } from '../../models/api.interfaces';
 import { StylesService } from '../../services/styles.service';
 
 @Component({
@@ -30,8 +31,8 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
 
   constructor(
     private api: ApiService,
-    private elRef: ElementRef,
-    private styles: StylesService
+    private styles: StylesService,
+    private elRef: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -44,9 +45,10 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
   subscribeToSection(): Subscription {
     if (!this.section.sectionId) return new Subscription();
 
-    return this.api.getSection(this.section.sectionId).subscribe({
+    return this.api.getSection(this.section).subscribe({
       next: (sectionContent) => {
         this.applySectionMarkup(sectionContent, this.section);
+        this.section.isLoading = false;
         this.loadedSection.emit(true);
       },
       error: console.log,
@@ -63,7 +65,6 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
 
     targetSection.HTML = sectionContentFromApi.HTML;
     targetSection.CSS = sectionContentFromApi.CSS;
-    targetSection.isLoading = false;
   }
 
   ngOnDestroy(): void {

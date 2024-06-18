@@ -7,13 +7,13 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { ApiService } from '../../services/api.service';
 import { Layout } from '../../models/api.interfaces';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 import { SideMenuComponent } from '../../shared/side-menu/side-menu.component';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ResultSectionComponent } from '../result-section/result-section.component';
+import { ApiService } from '../../services/api.service';
 import { StylesService } from '../../services/styles.service';
 
 @Component({
@@ -32,19 +32,19 @@ import { StylesService } from '../../services/styles.service';
 export class ResultComponent implements OnInit, OnDestroy {
   layout = {} as Layout;
   event = {} as MouseEvent;
-  loadedSections: number = 0;
 
   isEditMode: boolean = false;
   isContextMenuOpen: boolean = false;
   isLoadingSections: boolean = true;
+  loadedSections: number = 0;
 
   private layoutSubscription: Subscription = new Subscription();
 
   constructor(
     private api: ApiService,
+    private styles: StylesService,
     private renderer: Renderer2,
-    private elRef: ElementRef,
-    private styles: StylesService
+    private elRef: ElementRef
   ) {}
 
   ngOnInit(): void {

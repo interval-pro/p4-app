@@ -10,7 +10,11 @@ import {
 import { Subscription } from 'rxjs';
 
 import { ApiService } from '../../services/api.service';
-import { FinishedSection, Layout } from '../../models/api.interfaces';
+import {
+  FinishedSection,
+  GeneratedSection,
+  Layout,
+} from '../../models/api.interfaces';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 import { SideMenuComponent } from '../../shared/side-menu/side-menu.component';
@@ -34,6 +38,7 @@ export class ResultComponent implements OnInit, OnDestroy {
   layout = {} as Layout;
   event = {} as MouseEvent;
   sections: Partial<FinishedSection>[] = [];
+  loadedSections: number = 0;
 
   isEditMode: boolean = false;
   isContextMenuOpen: boolean = false;
@@ -58,6 +63,7 @@ export class ResultComponent implements OnInit, OnDestroy {
         this.layout = layout;
         layout.sections.forEach((s) => (s.isLoading = true));
         this.sections = layout.sections;
+        this.createAndAppendStyle(this.elRef, layout.mainStyle);
         this.callAllSectionSubscriptions();
       },
       error: console.log,
@@ -67,44 +73,53 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   callAllSectionSubscriptions() {
     for (const section of this.sections) {
-      const timeout: number = 1000 + Math.random() * (10000 - 1000);
+      const timeout: number = 1000 + Math.random() * (7000 - 1000);
 
       setTimeout(
         () => this.sectionSubscriptions.push(this.subscribeToSection(section)),
         timeout
       );
     }
-    // this.isLoadingSections = false;
   }
 
-  subscribeToSection(currentSection: Partial<FinishedSection>): Subscription {
-    if (!currentSection.sectionId) return new Subscription();
+  subscribeToSection(targetSection: Partial<FinishedSection>): Subscription {
+    if (!targetSection.sectionId) return new Subscription();
 
-    return this.api.getSection(currentSection.sectionId).subscribe({
+    return this.api.getSection(targetSection.sectionId).subscribe({
       next: (sectionContent) => {
-        this.sectionElements.forEach((el) => {
-          if (el.nativeElement.id == sectionContent.sectionId) {
-            el.nativeElement.innerHTML = sectionContent.HTML;
+        this.sectionElements.forEach((el) =>
+          this.findAndApplySectionMarkup(sectionContent, targetSection)
+        );
 
-            const styleEl = this.renderer.createElement('style');
-            styleEl.innerHTML = sectionContent.CSS;
-            this.renderer.appendChild(el.nativeElement, styleEl);
-
-            currentSection.HTML = sectionContent.HTML;
-            currentSection.CSS = sectionContent.CSS;
-            currentSection.isLoading = false;
-          }
-        });
+        this.loadedSections++;
+        if (this.loadedSections == this.sections.length)
+          this.isLoadingSections = false;
       },
       error: console.log,
       complete: console.log,
     });
   }
 
-  applyStyles(styles: string) {
+  findAndApplySectionMarkup(
+    sectionContentFromApi: GeneratedSection,
+    targetSection: Partial<FinishedSection>
+  ) {
+    this.sectionElements.forEach((elementRef) => {
+      if (elementRef.nativeElement.id == sectionContentFromApi.sectionId) {
+        elementRef.nativeElement.innerHTML = sectionContentFromApi.HTML;
+        this.createAndAppendStyle(elementRef, sectionContentFromApi.CSS);
+
+        targetSection.HTML = sectionContentFromApi.HTML;
+        targetSection.CSS = sectionContentFromApi.CSS;
+        targetSection.isLoading = false;
+      }
+    });
+  }
+
+  createAndAppendStyle(elRef: ElementRef, style: string) {
     const styleElement = this.renderer.createElement('style');
-    styleElement.innerHTML = styles;
-    this.renderer.appendChild(this.elRef.nativeElement, styleElement);
+    styleElement.innerHTML = style;
+    this.renderer.appendChild(elRef.nativeElement, styleElement);
   }
 
   onToggleEditMode(isToggled: boolean) {

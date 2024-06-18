@@ -3,22 +3,17 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
-  QueryList,
   Renderer2,
-  ViewChildren,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ApiService } from '../../services/api.service';
-import {
-  FinishedSection,
-  GeneratedSection,
-  Layout,
-} from '../../models/api.interfaces';
+import { Layout } from '../../models/api.interfaces';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 import { SideMenuComponent } from '../../shared/side-menu/side-menu.component';
 import { LoaderComponent } from '../../shared/loader/loader.component';
+import { ResultSectionComponent } from '../result-section/result-section.component';
 
 @Component({
   selector: 'app-result',
@@ -28,16 +23,14 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
     ContextMenuComponent,
     SideMenuComponent,
     LoaderComponent,
+    ResultSectionComponent,
   ],
   templateUrl: './result.component.html',
   styleUrl: './result.component.scss',
 })
 export class ResultComponent implements OnInit, OnDestroy {
-  @ViewChildren('section') sectionElements = {} as QueryList<ElementRef>;
-
   layout = {} as Layout;
   event = {} as MouseEvent;
-  sections: Partial<FinishedSection>[] = [];
   loadedSections: number = 0;
 
   isEditMode: boolean = false;
@@ -45,7 +38,6 @@ export class ResultComponent implements OnInit, OnDestroy {
   isLoadingSections: boolean = true;
 
   private layoutSubscription: Subscription = new Subscription();
-  private sectionSubscriptions: Subscription[] = new Array();
 
   constructor(
     private api: ApiService,
@@ -62,57 +54,10 @@ export class ResultComponent implements OnInit, OnDestroy {
       next: (layout) => {
         this.layout = layout;
         layout.sections.forEach((s) => (s.isLoading = true));
-        this.sections = layout.sections;
         this.createAndAppendStyle(this.elRef, layout.mainStyle);
-        this.callAllSectionSubscriptions();
       },
       error: console.log,
       complete: console.log,
-    });
-  }
-
-  callAllSectionSubscriptions() {
-    for (const section of this.sections) {
-      const timeout: number = 1000 + Math.random() * (7000 - 1000);
-
-      setTimeout(
-        () => this.sectionSubscriptions.push(this.subscribeToSection(section)),
-        timeout
-      );
-    }
-  }
-
-  subscribeToSection(targetSection: Partial<FinishedSection>): Subscription {
-    if (!targetSection.sectionId) return new Subscription();
-
-    return this.api.getSection(targetSection.sectionId).subscribe({
-      next: (sectionContent) => {
-        this.sectionElements.forEach((el) =>
-          this.findAndApplySectionMarkup(sectionContent, targetSection)
-        );
-
-        this.loadedSections++;
-        if (this.loadedSections == this.sections.length)
-          this.isLoadingSections = false;
-      },
-      error: console.log,
-      complete: console.log,
-    });
-  }
-
-  findAndApplySectionMarkup(
-    sectionContentFromApi: GeneratedSection,
-    targetSection: Partial<FinishedSection>
-  ) {
-    this.sectionElements.forEach((elementRef) => {
-      if (elementRef.nativeElement.id == sectionContentFromApi.sectionId) {
-        elementRef.nativeElement.innerHTML = sectionContentFromApi.HTML;
-        this.createAndAppendStyle(elementRef, sectionContentFromApi.CSS);
-
-        targetSection.HTML = sectionContentFromApi.HTML;
-        targetSection.CSS = sectionContentFromApi.CSS;
-        targetSection.isLoading = false;
-      }
     });
   }
 
@@ -122,6 +67,12 @@ export class ResultComponent implements OnInit, OnDestroy {
     const styleElement = this.renderer.createElement('style');
     styleElement.innerHTML = style;
     this.renderer.appendChild(elRef.nativeElement, styleElement);
+  }
+
+  onLoadedSection(isLoaded: boolean) {
+    if (isLoaded) this.loadedSections++;
+    if (this.loadedSections == this.layout.sections.length)
+      this.isLoadingSections = false;
   }
 
   onToggleEditMode(isToggled: boolean) {
@@ -161,9 +112,5 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.layoutSubscription.unsubscribe();
-
-    for (const subsription of this.sectionSubscriptions) {
-      subsription.unsubscribe();
-    }
   }
 }

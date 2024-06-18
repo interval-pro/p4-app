@@ -16,16 +16,12 @@
   (contextmenu)="onRightClick($event)"
   (click)="onClick($event)"
 >
-  @for (section of sections; track $index) {
+  @for (section of layout.sections; track $index) {
 
-  <section
-    [class.placeholder]="section.isLoading"
-    [id]="section.sectionId"
-    #section
-  >
-    <h2>{{ section.sectionId }}</h2>
-    <app-loader />
-  </section>
+  <app-result-section
+    [section]="section"
+    (loadedSection)="onLoadedSection($event)"
+  />
 
   }
 </div>

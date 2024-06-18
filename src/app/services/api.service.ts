@@ -4,7 +4,11 @@ import { Observable } from 'rxjs';
 
 import { FormService } from './form.service';
 import { CompanyData } from '../models/company-data.model';
-import { GeneratedSection, Layout } from '../models/api.interfaces';
+import {
+  FinishedSection,
+  GeneratedSection,
+  Layout,
+} from '../models/api.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -21,14 +25,14 @@ export class ApiService {
     return this.http.get<Layout>(this.layoutURL);
   }
 
-  getSection(sectionId: string): Observable<GeneratedSection> {
+  getSection(section: Partial<FinishedSection>): Observable<GeneratedSection> {
     let url = '';
 
     for (const section of sectionsURLs) {
-      if (sectionId == section.sectionId) url = section.url;
+      if (section.sectionId == section.sectionId) url = section.url;
     }
 
-    return this.http.post<GeneratedSection>(url, sectionId);
+    return this.http.post<GeneratedSection>(url, section);
   }
 }
 

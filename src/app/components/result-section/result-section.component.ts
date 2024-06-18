@@ -12,6 +12,7 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ApiService } from '../../services/api.service';
 import { Subscription } from 'rxjs';
 import { FinishedSection, GeneratedSection } from '../../models/api.interfaces';
+import { StylesService } from '../../services/styles.service';
 
 @Component({
   selector: 'app-result-section',
@@ -31,7 +32,8 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
   constructor(
     private api: ApiService,
     private renderer: Renderer2,
-    private elRef: ElementRef
+    private elRef: ElementRef,
+    private styles: StylesService
   ) {}
 
   ngOnInit(): void {
@@ -59,17 +61,11 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
     targetSection: Partial<FinishedSection>
   ) {
     this.elRef.nativeElement.innerHTML = sectionContentFromApi.HTML;
-    this.createAndAppendStyle(this.elRef, sectionContentFromApi.CSS);
+    this.styles.createAndAppendStyle(this.elRef, sectionContentFromApi.CSS);
 
     targetSection.HTML = sectionContentFromApi.HTML;
     targetSection.CSS = sectionContentFromApi.CSS;
     targetSection.isLoading = false;
-  }
-
-  createAndAppendStyle(elRef: ElementRef, style: string) {
-    const styleElement = this.renderer.createElement('style');
-    styleElement.innerHTML = style;
-    this.renderer.appendChild(elRef.nativeElement, styleElement);
   }
 
   ngOnDestroy(): void {

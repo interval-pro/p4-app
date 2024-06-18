@@ -117,6 +117,8 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   createAndAppendStyle(elRef: ElementRef, style: string) {
+    style = style.replace('body', '#site');
+
     const styleElement = this.renderer.createElement('style');
     styleElement.innerHTML = style;
     this.renderer.appendChild(elRef.nativeElement, styleElement);

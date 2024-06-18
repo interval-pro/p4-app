@@ -28,8 +28,8 @@ export class ApiService {
   getSection(section: Partial<FinishedSection>): Observable<GeneratedSection> {
     let url = '';
 
-    for (const section of sectionsURLs) {
-      if (section.sectionId == section.sectionId) url = section.url;
+    for (const sectionURL of sectionsURLs) {
+      if (sectionURL.sectionId == section.sectionId) url = sectionURL.url;
     }
 
     return this.http.post<GeneratedSection>(url, section);

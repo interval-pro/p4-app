@@ -17,7 +17,6 @@ export interface LayoutComponent {
 }
 
 export interface GeneratedSection {
-  sectionId: string;
   HTML: string;
   CSS: string;
 }

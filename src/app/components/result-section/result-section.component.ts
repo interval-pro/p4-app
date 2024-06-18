@@ -6,7 +6,6 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  Renderer2,
 } from '@angular/core';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ApiService } from '../../services/api.service';
@@ -31,7 +30,6 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
 
   constructor(
     private api: ApiService,
-    private renderer: Renderer2,
     private elRef: ElementRef,
     private styles: StylesService
   ) {}

@@ -32,6 +32,7 @@ export class DesignFormComponent implements OnInit {
       fonts: this.companyData.fonts,
       colors: this.companyData.colors,
       toneOfVoice: this.companyData.toneOfVoice,
+      imageryStyle: this.companyData.imageryStyle,
       additionalDesignFeatures: this.companyData.additionalDesignFeatures,
     });
   }

@@ -1,13 +1,15 @@
 export interface CompanyData {
   name: string;
   industry: string;
-  uniqueValueProposition: string;
-  values: string;
-  information: string;
-  additionalInformation: string;
+  uniqueValues: string;
+  coreValues: string;
+  businessDescription: string;
+  targetAudience: string;
+  goals: string;
   fonts: string;
   colors: string;
   toneOfVoice: string;
+  imageryStyle: string;
   additionalDesignFeatures: string;
   headlineSuggestions: string;
   subheadlineSuggestions: string;

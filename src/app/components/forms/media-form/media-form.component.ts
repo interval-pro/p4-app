@@ -9,13 +9,13 @@ import { FormService } from '../../../services/form.service';
 import { CompanyData } from '../../../models/company-data.model';
 
 @Component({
-  selector: 'app-details-form',
+  selector: 'app-media-form',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink, ButtonComponent],
-  templateUrl: './details-form.component.html',
-  styleUrl: './details-form.component.scss',
+  templateUrl: './media-form.component.html',
+  styleUrl: './media-form.component.scss',
 })
-export class DetailsFormComponent implements OnInit {
+export class MediaFormComponent implements OnInit {
   detailsForm = {} as FormGroup;
   companyData = {} as CompanyData;
 
@@ -39,11 +39,11 @@ export class DetailsFormComponent implements OnInit {
 
   onCancel(): void {
     this.fs.updateCompanyData(this.detailsForm.value);
-    this.router.navigateByUrl('/form/step-2');
+    this.router.navigateByUrl('/form/step-3');
   }
 
   onSubmit(): void {
     this.fs.updateCompanyData(this.detailsForm.value);
-    this.router.navigateByUrl('/form/step-4');
+    this.router.navigateByUrl('/result');
   }
 }

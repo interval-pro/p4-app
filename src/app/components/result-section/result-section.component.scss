@@ -1,25 +1,25 @@
-.placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1em;
-  width: 100%;
-  padding: 3em;
-  border: 2px dashed gray;
-  border-radius: 1em;
+// .placeholder {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 1em;
+//   width: 100%;
+//   padding: 3em;
+//   border: 2px dashed gray;
+//   border-radius: 1em;
 
-  &:not(#footer) {
-    margin-bottom: 1em;
-  }
+//   &:not(#footer) {
+//     margin-bottom: 1em;
+//   }
 
-  h2 {
-    color: gray;
-    text-transform: uppercase;
-  }
-}
+//   h2 {
+//     color: gray;
+//     text-transform: uppercase;
+//   }
+// }
 
-.placeholder#header,
-.placeholder#footer {
-  padding: 0.5em;
-}
+// .placeholder#header,
+// .placeholder#footer {
+//   padding: 0.5em;
+// }

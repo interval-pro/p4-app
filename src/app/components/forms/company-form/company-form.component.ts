@@ -31,10 +31,11 @@ export class CompanyFormComponent implements OnInit {
     this.companyForm = this.fb.nonNullable.group({
       name: this.companyData.name,
       industry: this.companyData.industry,
-      uniqueValueProposition: this.companyData.uniqueValueProposition,
-      values: this.companyData.values,
-      information: this.companyData.information,
-      additionalInformation: this.companyData.additionalInformation,
+      uniqueValues: this.companyData.uniqueValues,
+      coreValues: this.companyData.coreValues,
+      businessDescription: this.companyData.businessDescription,
+      targetAudience: this.companyData.targetAudience,
+      goals: this.companyData.goals,
     });
   }
 

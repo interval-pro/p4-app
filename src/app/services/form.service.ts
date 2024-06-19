@@ -21,6 +21,11 @@ export class FormService {
       colors: '',
       toneOfVoice: '',
       additionalDesignFeatures: '',
+      headlineSuggestions: '',
+      subheadlineSuggestions: '',
+      keyMessages: '',
+      callToAction: '',
+      additionalContent: '',
     };
   }
 

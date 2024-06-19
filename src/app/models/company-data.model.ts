@@ -9,4 +9,9 @@ export interface CompanyData {
   colors: string;
   toneOfVoice: string;
   additionalDesignFeatures: string;
+  headlineSuggestions: string;
+  subheadlineSuggestions: string;
+  keyMessages: string;
+  callToAction: string;
+  additionalContent: string;
 }

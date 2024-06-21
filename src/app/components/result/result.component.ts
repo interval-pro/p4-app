@@ -36,6 +36,7 @@ export class ResultComponent implements OnInit, OnDestroy {
   isEditMode: boolean = false;
   isContextMenuOpen: boolean = false;
   isLoadingSections: boolean = true;
+  isLoadingLayout: boolean = true;
   loadedSections: number = 0;
 
   private layoutSubscription: Subscription = new Subscription();
@@ -52,11 +53,12 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   subscribeToLayout(): Subscription {
-    return this.api.getMockedLayout().subscribe({
+    return this.api.getLayout().subscribe({
       next: (layout) => {
         this.layout = layout;
         layout.sections.forEach((s) => (s.isLoading = true));
         this.styles.createAndAppendStyle(this.elRef, layout.mainStyle);
+        this.isLoadingLayout = false;
       },
       error: console.log,
       complete: console.log,

@@ -36,6 +36,7 @@ export class ResultComponent implements OnInit, OnDestroy {
   isEditMode: boolean = false;
   isContextMenuOpen: boolean = false;
   isLoadingSections: boolean = true;
+  isLoadingLayout: boolean = true;
   loadedSections: number = 0;
 
   private layoutSubscription: Subscription = new Subscription();
@@ -48,7 +49,10 @@ export class ResultComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.layoutSubscription = this.subscribeToLayout();
+    setTimeout(
+      () => (this.layoutSubscription = this.subscribeToLayout()),
+      2000
+    );
   }
 
   subscribeToLayout(): Subscription {
@@ -57,6 +61,7 @@ export class ResultComponent implements OnInit, OnDestroy {
         this.layout = layout;
         layout.sections.forEach((s) => (s.isLoading = true));
         this.styles.createAndAppendStyle(this.elRef, layout.mainStyle);
+        this.isLoadingLayout = false;
       },
       error: console.log,
       complete: console.log,

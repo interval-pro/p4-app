@@ -36,10 +36,7 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    setTimeout(
-      () => (this.sectionSubscription = this.subscribeToSection()),
-      1000 + Math.random() * (7000 - 1000)
-    );
+    this.sectionSubscription = this.subscribeToSection();
   }
 
   subscribeToSection(): Subscription {

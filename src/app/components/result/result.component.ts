@@ -49,14 +49,11 @@ export class ResultComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    setTimeout(
-      () => (this.layoutSubscription = this.subscribeToLayout()),
-      2000
-    );
+    this.layoutSubscription = this.subscribeToLayout();
   }
 
   subscribeToLayout(): Subscription {
-    return this.api.getMockedLayout().subscribe({
+    return this.api.getLayout().subscribe({
       next: (layout) => {
         this.layout = layout;
         layout.sections.forEach((s) => (s.isLoading = true));

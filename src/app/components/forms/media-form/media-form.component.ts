@@ -29,11 +29,11 @@ export class MediaFormComponent implements OnInit {
     this.companyData = this.fs.getCompanyData();
 
     this.detailsForm = this.fb.nonNullable.group({
-      headlineSuggestions: this.companyData.headlineSuggestions,
-      subheadlineSuggestions: this.companyData.subheadlineSuggestions,
-      keyMessages: this.companyData.keyMessages,
-      callToAction: this.companyData.callToAction,
-      additionalContent: this.companyData.additionalContent,
+      // headlineSuggestions: this.companyData.detailsInfo.headlineSuggestions,
+      // subheadlineSuggestions: this.companyData.detailsInfo.subheadlineSuggestions,
+      // keyMessages: this.companyData.detailsInfo.keyMessages,
+      // callToAction: this.companyData.detailsInfo.callToAction,
+      // additionalContent: this.companyData.detailsInfo.additionalContent,
     });
   }
 

@@ -97,8 +97,7 @@
 //     if (this.isEditMode && event.target) {
 //       this.isContextMenuOpen = true;
 //       this.event = event;
-//     }
-//   }
+//     }!
 
 //   onClick(event: MouseEvent) {
 //     if (this.isContextMenuOpen) this.isContextMenuOpen = false;
@@ -112,7 +111,7 @@
 
 import { Component } from '@angular/core';
 import { FormService } from '../../services/form.service';
-import { CompanyData } from '../../models/company-data.model';
+import { CompanyData, BusinessData, DesignData, DetailsData, MediaData } from '../../models/company-data.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -126,4 +125,9 @@ export class ResultComponent {
   constructor(private fs: FormService) {}
 
   data: CompanyData = this.fs.getCompanyData();
+  businessData: BusinessData = this.fs.getBusinessData();
+  designData: DesignData = this.fs.getDesignData();
+  detailsData: DetailsData = this.fs.getDetailsData();
+  mediaData: MediaData = this.fs.getMediaData();
+  finalData = {...this.businessData, ...this.designData, ...this.detailsData, ...this.mediaData};
 }

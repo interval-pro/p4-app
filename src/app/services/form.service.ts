@@ -14,25 +14,6 @@ export class FormService {
   private mediaData: MediaData = this.getInitialMediaData();
 
   private getInitialCompanyData(): CompanyData {
-    // return {
-    // name: '',
-    // industry: '',
-    // uniqueValues: '',
-    // coreValues: '',
-    // businessDescription: '',
-    // targetAudience: '',
-    // goals: '',
-      // fonts: '',
-      // colors: '',
-      // toneOfVoice: '',
-      // imageryStyle: '',
-      // additionalDesignFeatures: '',
-      // headlineSuggestions: '',
-      // subheadlineSuggestions: '',
-      // keyMessages: '',
-      // callToAction: '',
-      // additionalContent: '',
-    // };
     return {
       businessInfo: {
         name: '',
@@ -106,6 +87,11 @@ export class FormService {
 
   updateCompanyData(data: Partial<CompanyData>): void {
     this.companyData = { ...this.companyData, ...data };
+
+    this.businessData.businessInfo = {...this.businessData.businessInfo, ...data};
+    this.designData.designInfo = {...this.designData.designInfo, ...data};
+    this.detailsData.detailsInfo = {...this.detailsData.detailsInfo, ...data};
+    this.mediaData = {...this.mediaData, ...data};
   };
 
   getCompanyData(): CompanyData {
@@ -146,5 +132,9 @@ export class FormService {
 
   resetCompanyData(): void {
     this.companyData = this.getInitialCompanyData();
+    this.businessData = this.getInitialBusinessData();
+    this.designData = this.getInitialDesignData();
+    this.detailsData = this.getInitialDetailsData();
+    this.mediaData = this.getInitialMediaData();
   };
 };

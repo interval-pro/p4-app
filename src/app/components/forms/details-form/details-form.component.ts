@@ -25,23 +25,15 @@ export class DetailsFormComponent implements OnInit {
     private fb: FormBuilder,
     private fs: FormService,
     private router: Router
-  ) {}
+  ) {};
 
   ngOnInit(): void {
-    // this.onLoad();
+    this.loadCompanyData();
     this.loadDetailsData();
   };
 
-  onLoad(): void {
+  loadCompanyData(): void {
     this.companyData = this.fs.getCompanyData();
-
-    this.companyForm = this.fb.nonNullable.group({
-      headlineSuggestions: this.companyData.detailsInfo.headlineSuggestions,
-      subheadlineSuggestions: this.companyData.detailsInfo.subheadlineSuggestions,
-      keyMessages: this.companyData.detailsInfo.keyMessages,
-      callToAction: this.companyData.detailsInfo.callToAction,
-      additionalContent: this.companyData.detailsInfo.additionalContent,
-    });
   };
 
   loadDetailsData(): void {
@@ -57,14 +49,13 @@ export class DetailsFormComponent implements OnInit {
   };
 
   onCancel(): void {
-    // this.fs.updateCompanyData(this.detailsForm.value);
     this.fs.updateDetailsData(this.detailsForm.value);
     this.router.navigateByUrl('/form/step-2');
   }
 
   onSubmit(): void {
-    // this.fs.updateCompanyData(this.detailsForm.value);
     this.fs.updateDetailsData(this.detailsForm.value);
+    this.companyData.detailsInfo = this.detailsData.detailsInfo;
     this.router.navigateByUrl('/form/step-4');
   }
 }

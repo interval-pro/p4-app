@@ -25,23 +25,15 @@ export class DesignFormComponent implements OnInit {
     private fb: FormBuilder,
     private fs: FormService,
     private router: Router
-  ) {}
+  ) {};
 
   ngOnInit(): void {
-    // this.onLoad();
+    this.loadCompanyData();
     this.loadDesignData();
   };
 
-  onLoad(): void {
+  loadCompanyData(): void {
     this.companyData = this.fs.getCompanyData();
-
-    this.companyForm = this.fb.nonNullable.group({
-      fonts: this.companyData.designInfo.fonts,
-      colors: this.companyData.designInfo.colors,
-      toneOfVoice: this.companyData.designInfo.toneOfVoice,
-      imageryStyle: this.companyData.designInfo.imageryStyle,
-      additionalDesignFeatures: this.companyData.designInfo.additionalDesignFeatures,
-    });
   };
 
   loadDesignData(): void {
@@ -57,14 +49,13 @@ export class DesignFormComponent implements OnInit {
   };
 
   onBack(): void {
-    // this.fs.updateCompanyData(this.designForm.value);
     this.fs.updateDesignData(this.designForm.value);
     this.router.navigateByUrl('/form/step-1');
-  }
+  };
 
   onSubmit(): void {
-    // this.fs.updateCompanyData(this.designForm.value);
     this.fs.updateDesignData(this.designForm.value);
+    this.companyData.designInfo = this.designData.designInfo;
     this.router.navigateByUrl('/form/step-3');
-  }
-}
+  };
+};

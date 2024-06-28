@@ -129,5 +129,5 @@ export class ResultComponent {
   designData: DesignData = this.fs.getDesignData();
   detailsData: DetailsData = this.fs.getDetailsData();
   mediaData: MediaData = this.fs.getMediaData();
-  finalData = {...this.businessData, ...this.designData, ...this.detailsData, ...this.mediaData};
-}
+  // data2 = {...this.businessData, ...this.designData, ...this.detailsData, ...this.mediaData};
+};

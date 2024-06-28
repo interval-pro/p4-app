@@ -28,22 +28,12 @@ export class CompanyFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.onLoad();
+    this.loadCompanyData();
     this.loadBusinessData();
   };
 
-  onLoad(): void {
+  loadCompanyData(): void {
     this.companyData = this.fs.getCompanyData();
-
-    this.companyForm = this.fb.nonNullable.group({
-      name: this.companyData.businessInfo.name,
-      industry: this.companyData.businessInfo.industry,
-      uniqueValues: this.companyData.businessInfo.uniqueValues,
-      coreValues: this.companyData.businessInfo.coreValues,
-      businessDescription: this.companyData.businessInfo.businessDescription,
-      targetAudience: this.companyData.businessInfo.targetAudience,
-      goals: this.companyData.businessInfo.goals,
-    });
   };
 
   loadBusinessData(): void {
@@ -58,7 +48,7 @@ export class CompanyFormComponent implements OnInit {
       targetAudience: this.businessData.businessInfo.targetAudience,
       goals: this.businessData.businessInfo.goals,
     });
-  }
+  };
 
   onCancel(): void {
     this.fs.resetCompanyData();
@@ -66,8 +56,8 @@ export class CompanyFormComponent implements OnInit {
   };
 
   onSubmit(): void {
-    // this.fs.updateCompanyData(this.companyForm.value);
     this.fs.updateBusinessData(this.businessForm.value);
+    this.companyData.businessInfo = this.businessData.businessInfo;
     this.router.navigateByUrl('/form/step-2');
   };
 };

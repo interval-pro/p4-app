@@ -16,7 +16,7 @@ import { CompanyData } from '../../../models/company-data.model';
   styleUrl: './media-form.component.scss',
 })
 export class MediaFormComponent implements OnInit {
-  detailsForm = {} as FormGroup;
+  mediaForm = {} as FormGroup;
   companyData = {} as CompanyData;
 
   constructor(
@@ -28,22 +28,17 @@ export class MediaFormComponent implements OnInit {
   ngOnInit(): void {
     this.companyData = this.fs.getCompanyData();
 
-    this.detailsForm = this.fb.nonNullable.group({
-      // headlineSuggestions: this.companyData.detailsInfo.headlineSuggestions,
-      // subheadlineSuggestions: this.companyData.detailsInfo.subheadlineSuggestions,
-      // keyMessages: this.companyData.detailsInfo.keyMessages,
-      // callToAction: this.companyData.detailsInfo.callToAction,
-      // additionalContent: this.companyData.detailsInfo.additionalContent,
+    this.mediaForm = this.fb.nonNullable.group({
     });
   }
 
   onCancel(): void {
-    this.fs.updateCompanyData(this.detailsForm.value);
+    this.fs.updateMediaData(this.mediaForm.value);
     this.router.navigateByUrl('/form/step-3');
   }
 
   onSubmit(): void {
-    this.fs.updateCompanyData(this.detailsForm.value);
+    this.fs.updateMediaData(this.mediaForm.value);
     this.router.navigateByUrl('/result');
   }
 }

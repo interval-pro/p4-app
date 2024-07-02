@@ -1,0 +1,9 @@
+<div class="form-wrapper">
+  <div class="preview-wrapper">
+    <pre>{{ companyData | json }}</pre>
+    <div class="btn-container">
+      <app-button text="Back" [isGhost]="true" (click)="onCancel()" />
+      <app-button text="Finish" (click)="onSubmit()" />
+    </div>
+  </div>
+</div>

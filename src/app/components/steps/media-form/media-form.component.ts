@@ -1,44 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 
 import { ButtonComponent } from '../../../shared/button/button.component';
 import { FormService } from '../../../services/form.service';
-import { CompanyData } from '../../../models/company-data.model';
+import { MediaData } from '../../../models/company-data.model';
 
 @Component({
   selector: 'app-media-form',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink, ButtonComponent],
   templateUrl: './media-form.component.html',
-  styleUrl: './media-form.component.scss',
+  styleUrl: '../forms.scss',
 })
-export class MediaFormComponent implements OnInit {
-  mediaForm = {} as FormGroup;
-  companyData = {} as CompanyData;
+export class MediaFormComponent {
+  mediaForm = this.fb.group<MediaData>(this.mediaData);
 
   constructor(
     private fb: FormBuilder,
     private fs: FormService,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {
-    this.companyData = this.fs.getCompanyData();
 
-    this.mediaForm = this.fb.nonNullable.group({
-    });
+  get mediaData(): MediaData {
+    return this.fs.mediaData;
   }
 
-  onCancel(): void {
-    this.fs.updateMediaData(this.mediaForm.value);
+  set mediaData(data: Partial<MediaData>) {
+    this.fs.mediaData = data;
+  }
+
+  onBack(): void {
+    this.mediaData = this.mediaForm.value as Partial<MediaData>;
     this.router.navigateByUrl('/form/step-3');
   }
 
   onSubmit(): void {
-    this.fs.updateMediaData(this.mediaForm.value);
-    this.router.navigateByUrl('/result');
+    this.mediaData = this.mediaForm.value as Partial<MediaData>;
+    this.router.navigateByUrl('/preview');
   }
 }

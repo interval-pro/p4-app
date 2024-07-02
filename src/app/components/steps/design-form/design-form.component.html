@@ -1,44 +1,39 @@
-<div id="form-wrapper">
+<div class="form-wrapper">
   <h2>Design & Style</h2>
-  <p id="step">Step 2</p>
+  <p class="step">Step 2</p>
 
   <form [formGroup]="designForm">
     <textarea
-      id="fonts"
       type="text"
       formControlName="fonts"
       placeholder="Fonts..."
     ></textarea>
 
     <textarea
-      id="colors"
       type="text"
       formControlName="colors"
       placeholder="Colors..."
     ></textarea>
 
     <textarea
-      id="toneOfVoice"
       type="text"
       formControlName="toneOfVoice"
       placeholder="Tone of voice..."
     ></textarea>
 
     <textarea
-      id="imageryStyle"
       type="text"
       formControlName="imageryStyle"
       placeholder="Imagery Style (e.g., modern, classic, minimalistic)"
     ></textarea>
 
     <textarea
-      id="additionalDesignFeatures"
       type="text"
       formControlName="additionalDesignFeatures"
       placeholder="Additional design features..."
     ></textarea>
 
-    <div id="btn-container">
+    <div class="btn-container">
       <app-button text="back" [isGhost]="true" (click)="onBack()" />
       <app-button text="next" (click)="onSubmit()" />
     </div>

@@ -1,32 +1,12 @@
-<!-- <app-context-menu
-  [isEditMode]="isEditMode"
-  [isOpen]="isContextMenuOpen"
-  [event]="event"
-  (closeMenu)="onCloseContextMenu($event)"
-/>
-<app-side-menu
-  [isLoadingResultSections]="isLoadingSections"
-  (toggleEdit)="onToggleEditMode($event)"
-/>
+<app-context-menu [isEditMode]="isEditMode" [isOpen]="isContextMenuOpen" [event]="event"
+  (closeMenu)="onCloseContextMenu($event)" />
+<app-side-menu [isLoadingResultSections]="isLoadingSections" (toggleEdit)="onToggleEditMode($event)" />
 
-<div
-  id="site"
-  (mouseover)="onMouseOver($event)"
-  (mouseout)="onMouseOut($event)"
-  (contextmenu)="onRightClick($event)"
-  (click)="onClick($event)"
->
+<div id="site" (mouseover)="onMouseOver($event)" (mouseout)="onMouseOut($event)" (contextmenu)="onRightClick($event)"
+  (click)="onClick($event)">
   @for (section of layout.sections; track $index) {
 
-  <app-result-section
-    [section]="section"
-    (loadedSection)="onLoadedSection($event)"
-  />
+  <app-result-section [section]="section" (loadedSection)="onLoadedSection($event)" />
 
   }
-</div> -->
-
-
-<div id="result-wrapper">
-  <pre>{{ data | json }}</pre>
 </div>

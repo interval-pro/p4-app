@@ -1,55 +1,52 @@
-<div id="form-wrapper">
+<div class="form-wrapper">
   <h2>Business Information</h2>
-  <p id="step">Step 1</p>
+  <p class="step">Step 1</p>
 
-  <!-- <form [formGroup]="companyForm"> -->
   <form [formGroup]="businessForm">
-    <input id="name" type="text" formControlName="name" placeholder="Name..." />
+    <input
+      type="text"
+      formControlName="name"
+      placeholder="Name..."
+    />
 
     <input
-      id="industry"
       type="text"
       formControlName="industry"
       placeholder="Industry..."
     />
 
     <textarea
-      id="uniqueValues"
       type="text"
       formControlName="uniqueValues"
       placeholder="Unique value proposition..."
     ></textarea>
 
     <textarea
-      id="coreValues"
       type="text"
       formControlName="coreValues"
       placeholder="Core Values..."
     ></textarea>
 
     <textarea
-      id="businessDescription"
       type="text"
       formControlName="businessDescription"
       placeholder="Business Description (a brief overview of the business)"
     ></textarea>
 
     <textarea
-      id="targetAudience"
       type="text"
       formControlName="targetAudience"
       placeholder="Target Audience (demographics, interests, pain points)"
     ></textarea>
 
     <textarea
-      id="goals"
       type="text"
       formControlName="goals"
       placeholder="Goals for the Landing Page (e.g., lead generation, sales, newsletter sign-ups)"
     ></textarea>
 
-    <div id="btn-container">
-      <app-button text="cancel" [isGhost]="true" (click)="onCancel()" />
+    <div class="btn-container">
+      <app-button text="back" [isGhost]="true" (click)="onBack()" />
       <app-button text="next" (click)="onSubmit()" />
     </div>
   </form>

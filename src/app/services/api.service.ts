@@ -2,13 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { FormService } from './form.service';
 import { CompanyData } from '../models/company-data.model';
-import {
-  FinishedSection,
-  GeneratedSection,
-  Layout,
-} from '../models/api.interfaces';
+import { FinishedSection, GeneratedSection, Layout } from '../models/api.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +11,10 @@ import {
 export class ApiService {
   companyData = {} as CompanyData;
 
-  constructor(private http: HttpClient, private fs: FormService) {}
+  constructor(
+    private http: HttpClient,
+  ) {}
 
-  // Mocking response for development purposes
   private layoutURL = 'assets/sample-response/layout.json';
 
   getMockedLayout(): Observable<Layout> {

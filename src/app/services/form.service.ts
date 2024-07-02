@@ -1,140 +1,91 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
-import { CompanyData, BusinessData, DesignData, DetailsData, MediaData } from '../models/company-data.model';
+import { BusinessData, DesignData, DetailsData, MediaData, CompanyData } from '../models/company-data.model';
+
+const getInitialBusinessData = (): BusinessData => {
+  return {
+    name: '',
+    industry: '',
+    uniqueValues: '',
+    coreValues: '',
+    businessDescription: '',
+    targetAudience: '',
+    goals: '',
+  };
+};
+
+const getInitialDesignData = (): DesignData =>  {
+  return {
+    fonts: '',
+    colors: '',
+    toneOfVoice: '',
+    imageryStyle: '',
+    additionalDesignFeatures: '',
+  };
+};
+
+
+const getInitialDetailsData = (): DetailsData => {
+  return {
+    headlineSuggestions: '',
+    subheadlineSuggestions: '',
+    keyMessages: '',
+    callToAction: '',
+    additionalContent: '',
+  };
+};
+
+const getInitialMediaData = (): MediaData => {
+  return { };
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  private companyData: CompanyData = this.getInitialCompanyData();
-  private businessData: BusinessData = this.getInitialBusinessData();
-  private designData: DesignData = this.getInitialDesignData();
-  private detailsData: DetailsData = this.getInitialDetailsData();
-  private mediaData: MediaData = this.getInitialMediaData();
+  private _businessData: BusinessData = getInitialBusinessData();
+  private _designData: DesignData = getInitialDesignData();
+  private _detailsData: DetailsData = getInitialDetailsData();
+  private _mediaData: MediaData = getInitialMediaData();
 
-  private getInitialCompanyData(): CompanyData {
-    return {
-      businessInfo: {
-        name: '',
-        industry: '',
-        uniqueValues: '',
-        coreValues: '',
-        businessDescription: '',
-        targetAudience: '',
-        goals: '',
-      },
-      designInfo: {
-        fonts: '',
-        colors: '',
-        toneOfVoice: '',
-        imageryStyle: '',
-        additionalDesignFeatures: '',
-      },
-      detailsInfo: {
-        headlineSuggestions: '',
-        subheadlineSuggestions: '',
-        keyMessages: '',
-        callToAction: '',
-        additionalContent: '',
-      },
-    }
-  };
-
-  private getInitialBusinessData(): BusinessData {
-    return {
-      businessInfo: {
-        name: '',
-        industry: '',
-        uniqueValues: '',
-        coreValues: '',
-        businessDescription: '',
-        targetAudience: '',
-        goals: '',
-      },
-    }
-  };
-
-  private getInitialDesignData(): DesignData {
-    return {
-      designInfo: {
-        fonts: '',
-        colors: '',
-        toneOfVoice: '',
-        imageryStyle: '',
-        additionalDesignFeatures: '',
-      },
-    }
-  };
-
-  private getInitialDetailsData(): DetailsData {
-    return {
-      detailsInfo: {
-        headlineSuggestions: '',
-        subheadlineSuggestions: '',
-        keyMessages: '',
-        callToAction: '',
-        additionalContent: '',
-      },
-    }
-  };
-
-  private getInitialMediaData(): MediaData {
-    return {
-
-    }
-  };
-
-  updateCompanyData(data: Partial<CompanyData>): void {
-    this.companyData = { ...this.companyData, ...data };
-
-    this.businessData.businessInfo = {...this.businessData.businessInfo, ...data};
-    this.designData.designInfo = {...this.designData.designInfo, ...data};
-    this.detailsData.detailsInfo = {...this.detailsData.detailsInfo, ...data};
-    this.mediaData = {...this.mediaData, ...data};
-  };
-
-  getCompanyData(): CompanyData {
-    return this.companyData;
-  };
-
-  updateBusinessData(data: Partial<BusinessData>): void {
-    this.businessData.businessInfo = {...this.businessData.businessInfo, ...data};
-  };
-
-  getBusinessData(): BusinessData {
-    return this.businessData;
-  };
-
-  updateDesignData(data: Partial<DesignData>): void {
-    this.designData.designInfo = {...this.designData.designInfo, ...data};
-  };
-
-  getDesignData(): DesignData {
-    return this.designData;
-  };
-
-  updateDetailsData(data: Partial<DetailsData>): void {
-    this.detailsData.detailsInfo = {...this.detailsData.detailsInfo, ...data};
-  };
-
-  getDetailsData(): DetailsData {
-    return this.detailsData;
-  };
-
-  updateMediaData(data: Partial<MediaData>): void {
-    this.mediaData = {...this.mediaData, ...data};
-  };
-
-  getMediaData(): MediaData {
-    return this.mediaData;
+  get businessData(): BusinessData {
+    return this._businessData;
   }
 
-  resetCompanyData(): void {
-    this.companyData = this.getInitialCompanyData();
-    this.businessData = this.getInitialBusinessData();
-    this.designData = this.getInitialDesignData();
-    this.detailsData = this.getInitialDetailsData();
-    this.mediaData = this.getInitialMediaData();
+  set businessData(data: Partial<BusinessData>) {
+    this._businessData = { ...this._businessData, ...data };
   };
+
+  get designData(): DesignData {
+    return this._designData;
+  };
+
+  set designData(data: Partial<DesignData>) {
+    this._designData = { ...this._designData, ...data };
+  };
+
+  get detailsData(): DetailsData {
+    return this._detailsData;
+  }
+
+  set detailsData(data: Partial<DetailsData>) {
+    this._detailsData = { ...this._detailsData, ...data };
+  };
+
+  get mediaData(): MediaData {
+    return this._mediaData;
+  }
+
+  set mediaData(data: Partial<MediaData>) {
+    this._mediaData = {...this._mediaData, ...data};
+  };
+
+  get companyData(): CompanyData {
+    return {
+      businessInfo: this._businessData,
+      designInfo: this._designData,
+      detailsInfo: this._detailsData,
+      mediaInfo: this._mediaData,
+    };
+  }
 };

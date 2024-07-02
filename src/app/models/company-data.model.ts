@@ -1,12 +1,36 @@
 export interface CompanyData {
+  businessInfo: BusinessData;
+  designInfo: DesignData;
+  detailsInfo: DetailsData;
+  mediaInfo: MediaData;
+};
+
+export interface BusinessData {
   name: string;
   industry: string;
-  uniqueValueProposition: string;
-  values: string;
-  information: string;
-  additionalInformation: string;
+  uniqueValues: string;
+  coreValues: string;
+  businessDescription: string;
+  targetAudience: string;
+  goals: string;
+};
+
+export interface DesignData {
   fonts: string;
   colors: string;
   toneOfVoice: string;
+  imageryStyle: string;
   additionalDesignFeatures: string;
-}
+};
+
+export interface DetailsData {
+  headlineSuggestions: string;
+  subheadlineSuggestions: string;
+  keyMessages: string;
+  callToAction: string;
+  additionalContent: string;
+};
+
+export interface MediaData {
+
+};

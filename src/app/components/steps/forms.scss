@@ -1,20 +1,24 @@
 @import "../../../colors";
 
-#form-wrapper {
+.form-wrapper {
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    max-width: 40vw;
+    margin: 0 auto;
+    gap: 1rem;
   }
   
-  form {
+  form,
+  .preview-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    min-width: 25vw;/**/
+    min-width: 25vw;
   }
   
   input {
@@ -35,16 +39,24 @@
     border-radius: 0.5rem;
   }
   
-  #step {
+  .step {
     margin-bottom: 1rem;
     font-size: 14px;
     text-transform: uppercase;
     color: $light;
   }
   
-  #btn-container {
+  .btn-container {
     width: 100%;
     display: flex;
     justify-content: space-between;
   }
   
+  .preview-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    height: 100vh;
+  }

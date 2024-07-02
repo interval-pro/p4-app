@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { FinishedSection, GeneratedSection } from '../../models/api.interfaces';
-import { LoaderComponent } from '../../shared/loader/loader.component';
-import { ApiService } from '../../services/api.service';
-import { StylesService } from '../../services/styles.service';
+import { FinishedSection, GeneratedSection } from '../../../models/api.interfaces';
+import { LoaderComponent } from '../../../shared/loader/loader.component';
+import { ApiService } from '../../../services/api.service';
+import { StylesService } from '../../../services/styles.service';
 
 @Component({
   selector: 'app-result-section',

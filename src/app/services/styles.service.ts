@@ -1,9 +1,4 @@
-import {
-  ElementRef,
-  Injectable,
-  Renderer2,
-  RendererFactory2,
-} from '@angular/core';
+import { ElementRef, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +6,9 @@ import {
 export class StylesService {
   private renderer: Renderer2;
 
-  constructor(rendererFactory: RendererFactory2) {
+  constructor(
+    rendererFactory: RendererFactory2,
+  ) {
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 

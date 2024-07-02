@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../shared/button/button.component';
+import { ButtonComponent } from '../../../shared/button/button.component';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -7,6 +7,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [ButtonComponent, RouterLink],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  styleUrl: '../forms.scss',
 })
 export class HomeComponent {}

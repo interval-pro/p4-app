@@ -12,7 +12,7 @@ import { ButtonComponent } from '../../shared/button/button.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 import { SideMenuComponent } from '../../shared/side-menu/side-menu.component';
 import { LoaderComponent } from '../../shared/loader/loader.component';
-import { ResultSectionComponent } from '../result-section/result-section.component';
+import { ResultSectionComponent } from './result-section/result-section.component';
 import { ApiService } from '../../services/api.service';
 import { StylesService } from '../../services/styles.service';
 

@@ -1,0 +1,53 @@
+<div class="form-wrapper">
+  <h2>Business Information</h2>
+  <p class="step">Step 1</p>
+
+  <form [formGroup]="businessForm">
+    <input
+      type="text"
+      formControlName="name"
+      placeholder="Name..."
+    />
+
+    <input
+      type="text"
+      formControlName="industry"
+      placeholder="Industry..."
+    />
+
+    <textarea
+      type="text"
+      formControlName="uniqueValues"
+      placeholder="Unique value proposition..."
+    ></textarea>
+
+    <textarea
+      type="text"
+      formControlName="coreValues"
+      placeholder="Core Values..."
+    ></textarea>
+
+    <textarea
+      type="text"
+      formControlName="businessDescription"
+      placeholder="Business Description (a brief overview of the business)"
+    ></textarea>
+
+    <textarea
+      type="text"
+      formControlName="targetAudience"
+      placeholder="Target Audience (demographics, interests, pain points)"
+    ></textarea>
+
+    <textarea
+      type="text"
+      formControlName="goals"
+      placeholder="Goals for the Landing Page (e.g., lead generation, sales, newsletter sign-ups)"
+    ></textarea>
+
+    <div class="btn-container">
+      <app-button text="back" [isGhost]="true" (click)="onBack()" />
+      <app-button text="next" (click)="onSubmit()" />
+    </div>
+  </form>
+</div>

@@ -1,0 +1,11 @@
+<div class="form-wrapper">
+  <h2>Resources and Media</h2>
+  <p class="step">Step 4</p>
+
+  <form [formGroup]="mediaForm">
+    <div class="btn-container">
+      <app-button text="back" [isGhost]="true" (click)="onBack()" />
+      <app-button text="next" (click)="onSubmit()" />
+    </div>
+  </form>
+</div>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { FormService } from './form.service';
-import { CompanyData } from '../models/company-data.model';
+
 import {
   FinishedSection,
   GeneratedSection,
@@ -19,12 +19,12 @@ export class ApiService {
   apiUrl = environment.apiUrl;
   engineType = environment.engineType;
 
-  constructor(private http: HttpClient, private fs: FormService) {}
+  constructor(private http: HttpClient, private fs: FormService) { }
 
   getLayout(): Observable<Layout> {
     return this.http.post<Layout>(
       this.apiUrl + ApiEndpoints.GENERATE_LAYOUT,
-      { inputs: this.fs.getCompanyData() },
+      { inputs: JSON.stringify(this.fs.companyData)},
       { params: { engineType: this.engineType } }
     );
   }
@@ -32,16 +32,16 @@ export class ApiService {
   getSection(section: Partial<FinishedSection>): Observable<GeneratedSection> {
     return this.http.post<GeneratedSection>(
       this.apiUrl + ApiEndpoints.GENERATE_SECTION,
-      { inputs: this.fs.getCompanyData(), section },
+      { initialInputs: JSON.stringify(this.fs.companyData), section },
       { params: { engineType: this.engineType } }
     );
   }
 
-  // Mocking response for development purposes
   private layoutURL = 'assets/sample-response/layout.json';
   getMockedLayout(): Observable<Layout> {
     return this.http.get<Layout>(this.layoutURL);
   }
+
   getMockedSection(
     section: Partial<FinishedSection>
   ): Observable<GeneratedSection> {
@@ -55,7 +55,6 @@ export class ApiService {
   }
 }
 
-// Mocking sections for development purposes
 const sectionsURLs = [
   {
     sectionId: 'header',

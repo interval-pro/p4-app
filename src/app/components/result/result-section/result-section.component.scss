@@ -1,11 +1,13 @@
 .placeholder {
   display: flex;
+  // flex: 1 0 20vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1em;
   width: 100%;
   padding: 3em;
+  min-height: 25vh;
   border: 2px dashed gray;
   border-radius: 1em;
 
@@ -22,4 +24,5 @@
 .placeholder#header,
 .placeholder#footer {
   padding: 0.5em;
+  min-height: 15vh;
 }

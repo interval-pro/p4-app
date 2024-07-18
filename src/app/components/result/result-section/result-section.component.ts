@@ -9,7 +9,10 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { FinishedSection, GeneratedSection } from '../../../models/api.interfaces';
+import {
+  FinishedSection,
+  GeneratedSection,
+} from '../../../models/api.interfaces';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { ApiService } from '../../../services/api.service';
 import { StylesService } from '../../../services/styles.service';
@@ -48,8 +51,7 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
         this.section.isLoading = false;
         this.loadedSection.emit(true);
       },
-      error: console.log,
-      complete: console.log,
+      error: (e) => (this.section.isLoading = false),
     });
   }
 

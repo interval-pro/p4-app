@@ -1,33 +1,38 @@
 @if (isLoadingLayout) {
-  <div class="loader-wrapper">
-    <app-loader size="10rem" />
-  </div>
-  } @else {
-  <app-context-menu
-    [isEditMode]="isEditMode"
-    [isOpen]="isContextMenuOpen"
-    [event]="event"
-    (closeMenu)="onCloseContextMenu($event)"
+
+<div class="loader-wrapper">
+  <app-loader size="10rem" />
+</div>
+
+} @else {
+<app-context-menu
+  [isEditMode]="isEditMode"
+  [isOpen]="isContextMenuOpen"
+  [event]="event"
+  (closeMenu)="onCloseContextMenu($event)"
+/>
+
+@if (isSideMenuVisible) {
+<app-side-menu
+  [isLoadingResultSections]="isLoadingSections"
+  (toggleEdit)="onToggleEditMode($event)"
+/>
+}
+
+<div
+  id="site"
+  (mouseover)="onMouseOver($event)"
+  (mouseout)="onMouseOut($event)"
+  (contextmenu)="onRightClick($event)"
+  (click)="onClick($event)"
+>
+  @for (section of layout.sections; track $index) {
+
+  <app-result-section
+    [section]="section"
+    (loadedSection)="onLoadedSection($event)"
   />
-  <app-side-menu
-    [isLoadingResultSections]="isLoadingSections"
-    (toggleEdit)="onToggleEditMode($event)"
-  />
-  
-  <div
-    id="site"
-    (mouseover)="onMouseOver($event)"
-    (mouseout)="onMouseOut($event)"
-    (contextmenu)="onRightClick($event)"
-    (click)="onClick($event)"
-  >
-    @for (section of layout.sections; track $index) {
-  
-    <app-result-section
-      [section]="section"
-      (loadedSection)="onLoadedSection($event)"
-    />
-  
-    }
-  </div>
+
   }
+</div>
+}

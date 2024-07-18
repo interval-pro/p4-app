@@ -37,6 +37,7 @@ export class ResultComponent implements OnInit, OnDestroy {
   isContextMenuOpen: boolean = false;
   isLoadingSections: boolean = true;
   isLoadingLayout: boolean = true;
+  isSideMenuVisible: boolean = false;
   loadedSections: number = 0;
 
   private layoutSubscription: Subscription = new Subscription();
@@ -59,9 +60,9 @@ export class ResultComponent implements OnInit, OnDestroy {
         layout.sections.forEach((s) => (s.isLoading = true));
         this.styles.createAndAppendStyle(this.elRef, layout.mainStyle);
         this.isLoadingLayout = false;
+        this.isSideMenuVisible = true;
       },
-      error: console.log,
-      complete: console.log,
+      error: (e) => (this.isLoadingLayout = false),
     });
   }
 

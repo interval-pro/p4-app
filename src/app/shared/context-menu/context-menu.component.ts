@@ -7,18 +7,22 @@ import {
   Renderer2,
   SimpleChanges,
 } from '@angular/core';
-import { actionMappings } from '../action-mappings';
+import { actionsMaps } from '../../constants/actions.maps';
+import { ApiActions } from '../../constants/api.enums';
+import { ApiService } from '../../services/api.service';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-context-menu',
   standalone: true,
-  imports: [],
+  imports: [LoaderComponent],
   templateUrl: './context-menu.component.html',
   styleUrl: './context-menu.component.scss',
 })
 export class ContextMenuComponent implements OnChanges {
   @Input() isEditMode: boolean = false;
   @Input() isOpen: boolean = false;
+  @Input() isLoadingChanges: boolean = false;
   @Input() event = {} as MouseEvent;
 
   @Output() closeMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
@@ -29,7 +33,7 @@ export class ContextMenuComponent implements OnChanges {
   isNearRight: boolean = false;
   availableActions: string[] = [];
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2, private api: ApiService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const inputName in changes) {
@@ -45,7 +49,7 @@ export class ContextMenuComponent implements OnChanges {
   open() {
     this.target = this.event.target as HTMLElement;
     this.renderer.setStyle(this.target, 'filter', 'blur(3px)');
-    this.availableActions = this.displayActions(this.target);
+    this.availableActions = this.displayActions(this.target.nodeName);
 
     this.isNearBottom =
       window.innerHeight - this.event.clientY < window.innerHeight / 5;
@@ -96,29 +100,56 @@ export class ContextMenuComponent implements OnChanges {
     };
   }
 
-  displayActions(target: HTMLElement) {
-    const nodeName = target.nodeName;
-
-    for (const key in actionMappings) {
-      if (actionMappings[key].targets.includes(nodeName)) {
-        return actionMappings[key].actions;
-      }
+  displayActions(nodeName: string) {
+    for (const map of actionsMaps) {
+      if (map.targets.includes(nodeName)) return map.actions;
     }
 
     return ['Delete'];
   }
 
   returnActionIcon(action: string): string {
-    if (action.includes('Regenerate')) return '/assets/icons/regenerate.svg';
-    if (action.includes('Edit')) return '/assets/icons/edit.svg';
-    if (action.includes('Upload')) return '/assets/icons/upload.svg';
-    if (action.includes('Delete')) return '/assets/icons/delete.svg';
-    return '/assets/icons/placeholder.svg';
+    return (
+      `/assets/icons/${action.toLowerCase()}.svg` ||
+      '/assets/icons/placeholder.svg'
+    );
   }
 
   onAction(action: string) {
     this.close();
 
-    console.log(action, this.target);
+    switch (action) {
+      case ApiActions.REGENERATE:
+        this.onRegenerate();
+        break;
+      case ApiActions.EDIT:
+        break;
+      case ApiActions.DELETE:
+        break;
+      case ApiActions.UPLOAD:
+        break;
+    }
+  }
+
+  onRegenerate() {
+    const section = this.target.closest('section, header, footer');
+    const styleElement = section?.nextElementSibling;
+    const sectionStyle = styleElement?.outerHTML;
+    const elementHTML = this.target.outerHTML;
+
+    if (!section || !styleElement || !sectionStyle) return;
+
+    this.isLoadingChanges = true;
+
+    this.api
+      .mockRegenerateElement({ HTML: elementHTML, CSS: sectionStyle })
+      .subscribe({
+        next: (res) => {
+          this.target.outerHTML = res.HTML;
+          styleElement.innerHTML = res.CSS;
+        },
+      });
+
+    this.isLoadingChanges = false;
   }
 }

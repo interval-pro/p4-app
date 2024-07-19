@@ -1,10 +1,19 @@
-@if (isOpen) {
+@if (isLoadingChanges) {
+<div class="loader-wrapper">
+  <app-loader size="10rem" />
+</div>
+} @if (isOpen) {
 <ul id="context-menu" [style]="calculatePosition()">
+  <li id="tagName">{{ this.target.tagName }}</li>
+
   @for (action of availableActions; track $index) {
 
   <li (click)="onAction(action)">
-    <img [src]="returnActionIcon(action)" [alt]="action" />
-    {{ action }}
+    <img [src]="returnActionIcon(action)" [alt]="action" class="action-icon" />
+    <p>{{ action }}</p>
+    @if (action === 'Regenerate') {
+    <label class="ai">AI</label>
+    }
   </li>
 
   }

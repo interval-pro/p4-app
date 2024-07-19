@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 
 import {
   FinishedSection,
-  GeneratedSection,
+  GeneratedHTMLElement,
 } from '../../../models/api.interfaces';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { ApiService } from '../../../services/api.service';
@@ -45,7 +45,7 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
   subscribeToSection(): Subscription {
     if (!this.section.sectionId) return new Subscription();
 
-    return this.api.getSection(this.section).subscribe({
+    return this.api.getMockedSection(this.section).subscribe({
       next: (sectionContent) => {
         this.applySectionMarkup(sectionContent, this.section);
         this.section.isLoading = false;
@@ -56,7 +56,7 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
   }
 
   applySectionMarkup(
-    sectionContentFromApi: GeneratedSection,
+    sectionContentFromApi: GeneratedHTMLElement,
     targetSection: Partial<FinishedSection>
   ) {
     this.elRef.nativeElement.innerHTML = sectionContentFromApi.HTML;

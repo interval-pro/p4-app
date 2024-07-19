@@ -126,6 +126,7 @@ export class ContextMenuComponent implements OnChanges {
         this.onRegenerate();
         break;
       case ApiActions.EDIT:
+        this.onEdit();
         break;
       case ApiActions.DELETE:
         this.onDeleteRequest();
@@ -164,5 +165,11 @@ export class ContextMenuComponent implements OnChanges {
   onConfirmedDelete(isConfirmed: boolean) {
     if (isConfirmed) this.target.remove();
     this.showConfirmDialog = false;
+  }
+
+  onEdit() {
+    this.target.contentEditable = this.target.isContentEditable
+      ? 'false'
+      : 'true';
   }
 }

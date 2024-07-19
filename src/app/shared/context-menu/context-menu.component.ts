@@ -11,11 +11,12 @@ import { actionsMaps } from '../../constants/actions.maps';
 import { ApiActions } from '../../constants/api.enums';
 import { ApiService } from '../../services/api.service';
 import { LoaderComponent } from '../loader/loader.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-context-menu',
   standalone: true,
-  imports: [LoaderComponent],
+  imports: [LoaderComponent, ConfirmDialogComponent],
   templateUrl: './context-menu.component.html',
   styleUrl: './context-menu.component.scss',
 })
@@ -31,6 +32,8 @@ export class ContextMenuComponent implements OnChanges {
   position = { x: 0, y: 0 };
   isNearBottom: boolean = false;
   isNearRight: boolean = false;
+  showConfirmDialog: boolean = false;
+  isConfirmedDelete: boolean = false;
   availableActions: string[] = [];
 
   constructor(private renderer: Renderer2, private api: ApiService) {}
@@ -125,6 +128,7 @@ export class ContextMenuComponent implements OnChanges {
       case ApiActions.EDIT:
         break;
       case ApiActions.DELETE:
+        this.onDeleteRequest();
         break;
       case ApiActions.UPLOAD:
         break;
@@ -150,6 +154,15 @@ export class ContextMenuComponent implements OnChanges {
         },
       });
 
-    this.isLoadingChanges = false;
+    setTimeout(() => (this.isLoadingChanges = false), 1000);
+  }
+
+  onDeleteRequest() {
+    this.showConfirmDialog = true;
+  }
+
+  onConfirmedDelete(isConfirmed: boolean) {
+    if (isConfirmed) this.target.remove();
+    this.showConfirmDialog = false;
   }
 }

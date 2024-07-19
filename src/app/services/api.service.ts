@@ -6,11 +6,11 @@ import { FormService } from './form.service';
 
 import {
   FinishedSection,
-  GeneratedSection,
+  GeneratedHTMLElement,
   Layout,
 } from '../models/api.interfaces';
 import { environment } from '../../environments/environment.development';
-import { ApiEndpoints } from '../constants/api-endpoints.enum';
+import { ApiEndpoints } from '../constants/api.enums';
 
 @Injectable({
   providedIn: 'root',
@@ -19,39 +19,59 @@ export class ApiService {
   apiUrl = environment.apiUrl;
   engineType = environment.engineType;
 
-  constructor(private http: HttpClient, private fs: FormService) { }
+  constructor(private http: HttpClient, private fs: FormService) {}
 
   getLayout(): Observable<Layout> {
     return this.http.post<Layout>(
       this.apiUrl + ApiEndpoints.GENERATE_LAYOUT,
-      { inputs: JSON.stringify(this.fs.companyData)},
+      { inputs: JSON.stringify(this.fs.companyData) },
       { params: { engineType: this.engineType } }
     );
   }
 
-  getSection(section: Partial<FinishedSection>): Observable<GeneratedSection> {
-    return this.http.post<GeneratedSection>(
+  getSection(
+    section: Partial<FinishedSection>
+  ): Observable<GeneratedHTMLElement> {
+    return this.http.post<GeneratedHTMLElement>(
       this.apiUrl + ApiEndpoints.GENERATE_SECTION,
       { initialInputs: JSON.stringify(this.fs.companyData), section },
       { params: { engineType: this.engineType } }
     );
   }
 
-  private layoutURL = 'assets/sample-response/layout.json';
+  regenerateElement(
+    element: GeneratedHTMLElement
+  ): Observable<GeneratedHTMLElement> {
+    return this.http.post<GeneratedHTMLElement>(
+      this.apiUrl + ApiEndpoints.REGENERATE_ELEMENT,
+      { initialInputs: JSON.stringify(this.fs.companyData), element },
+      { params: { engineType: this.engineType } }
+    );
+  }
+
+  // Mocked API calls for development
+  mockRegenerateElement(
+    element: GeneratedHTMLElement
+  ): Observable<GeneratedHTMLElement> {
+    return this.http.get<GeneratedHTMLElement>(
+      'assets/sample-response/regenerate.json'
+    );
+  }
+
   getMockedLayout(): Observable<Layout> {
-    return this.http.get<Layout>(this.layoutURL);
+    return this.http.get<Layout>('assets/sample-response/layout.json');
   }
 
   getMockedSection(
     section: Partial<FinishedSection>
-  ): Observable<GeneratedSection> {
+  ): Observable<GeneratedHTMLElement> {
     let url = '';
 
     for (const sectionURL of sectionsURLs) {
       if (sectionURL.sectionId == section.sectionId) url = sectionURL.url;
     }
 
-    return this.http.post<GeneratedSection>(url, section);
+    return this.http.post<GeneratedHTMLElement>(url, section);
   }
 }
 

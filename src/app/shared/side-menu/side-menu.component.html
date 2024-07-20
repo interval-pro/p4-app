@@ -1,12 +1,22 @@
-<div id="side-menu-wrapper">
-  <img
-    src="/assets/icons/menu.svg"
-    alt="menu"
-    id="menu-icon"
-    [style.filter]="isOpen ? 'brightness(0.95)' : ''"
-    [class.unavailable]="isLoadingResultSections"
-    (click)="toggleMenu()"
-  />
+<div id="side-menu-wrapper" #sideMenuWrapper>
+  <div id="icons-wrapper">
+    <img
+      src="/assets/icons/drag.svg"
+      alt="drag"
+      id="drag-icon"
+      [style.filter]="isOpen ? 'brightness(0.95)' : ''"
+      (mousedown)="onMouseDown($event)"
+    />
+
+    <img
+      src="/assets/icons/menu.svg"
+      alt="menu"
+      id="menu-icon"
+      [style.filter]="isOpen ? 'brightness(0.95)' : ''"
+      [class.unavailable]="isLoadingResultSections"
+      (click)="toggleMenu()"
+    />
+  </div>
 
   <ul [style.display]="isOpen ? 'block' : 'none'">
     <li class="toggle">

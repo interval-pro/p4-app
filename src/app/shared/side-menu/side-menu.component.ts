@@ -39,7 +39,7 @@ export class SideMenuComponent {
   }
 
   exportJson() {
-    const jsonData = { content: this.siteRef.innerHTML };
+    const jsonData = { content: this.siteRef.outerHTML };
     const jsonContent = this.exportService.exportAsJson(jsonData);
     this.exportService.downloadFile(
       jsonContent,

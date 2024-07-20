@@ -49,12 +49,29 @@ export class ApiService {
     );
   }
 
+  uploadImage(file: File): Observable<{ fileUrl: string }> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.http.post<{ fileUrl: string }>(
+      this.apiUrl + ApiEndpoints.UPLOAD_IMAGE,
+      formData
+    );
+  }
+
   // Mocked API calls for development
+
   mockRegenerateElement(
     element: GeneratedHTMLElement
   ): Observable<GeneratedHTMLElement> {
     return this.http.get<GeneratedHTMLElement>(
       'assets/sample-response/regenerate.json'
+    );
+  }
+
+  mockUploadImage(file: File): Observable<{ fileUrl: string }> {
+    return this.http.get<{ fileUrl: string }>(
+      'assets/sample-response/upload.json'
     );
   }
 

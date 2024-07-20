@@ -11,8 +11,17 @@
   <li (click)="onAction(action)">
     <img [src]="returnActionIcon(action)" [alt]="action" class="action-icon" />
     <p>{{ action }}</p>
+
     @if (action === 'Regenerate') {
     <label class="ai">AI</label>
+    } @else if (action === 'Upload') {
+    <input
+      type="file"
+      #fileInput
+      (change)="onFileSelected($event)"
+      accept="image/*"
+      style="display: none"
+    />
     }
   </li>
 

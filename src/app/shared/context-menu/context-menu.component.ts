@@ -1,17 +1,20 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   Output,
   Renderer2,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { actionsMaps } from '../../constants/actions.maps';
 import { ApiActions } from '../../constants/api.enums';
 import { ApiService } from '../../services/api.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-context-menu',
@@ -21,6 +24,8 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   styleUrl: './context-menu.component.scss',
 })
 export class ContextMenuComponent implements OnChanges {
+  @ViewChild('fileInput') fileInput = {} as ElementRef;
+
   @Input() isEditMode: boolean = false;
   @Input() isOpen: boolean = false;
   @Input() isLoadingChanges: boolean = false;
@@ -36,7 +41,11 @@ export class ContextMenuComponent implements OnChanges {
   isConfirmedDelete: boolean = false;
   availableActions: string[] = [];
 
-  constructor(private renderer: Renderer2, private api: ApiService) {}
+  constructor(
+    private renderer: Renderer2,
+    private api: ApiService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const inputName in changes) {
@@ -119,8 +128,6 @@ export class ContextMenuComponent implements OnChanges {
   }
 
   onAction(action: string) {
-    this.close();
-
     switch (action) {
       case ApiActions.REGENERATE:
         this.onRegenerate();
@@ -132,17 +139,23 @@ export class ContextMenuComponent implements OnChanges {
         this.onDeleteRequest();
         break;
       case ApiActions.UPLOAD:
+        this.onUpload();
         break;
     }
   }
 
   onRegenerate() {
+    this.close();
+
     const section = this.target.closest('section, header, footer');
     const styleElement = section?.nextElementSibling;
     const sectionStyle = styleElement?.outerHTML;
     const elementHTML = this.target.outerHTML;
 
-    if (!section || !styleElement || !sectionStyle) return;
+    if (!section || !styleElement || !sectionStyle) {
+      this.toastr.error('Error: Invalid selection');
+      return;
+    }
 
     this.isLoadingChanges = true;
 
@@ -159,17 +172,48 @@ export class ContextMenuComponent implements OnChanges {
   }
 
   onDeleteRequest() {
+    this.close();
+
     this.showConfirmDialog = true;
   }
 
   onConfirmedDelete(isConfirmed: boolean) {
-    if (isConfirmed) this.target.remove();
     this.showConfirmDialog = false;
+
+    if (isConfirmed)
+      this.renderer.removeChild(this.target.parentNode, this.target);
   }
 
   onEdit() {
+    this.close();
+
     this.target.contentEditable = this.target.isContentEditable
       ? 'false'
       : 'true';
+  }
+
+  onUpload() {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (!input.files || input.files.length <= 0) {
+      this.toastr.error('Error: No file selected');
+      return;
+    }
+    const file = input.files[0];
+
+    this.close();
+    this.isLoadingChanges = true;
+
+    const imageToReplace = this.target as HTMLImageElement;
+
+    this.api.mockUploadImage(file).subscribe({
+      next: (res) => (imageToReplace.src = res.fileUrl),
+    });
+
+    setTimeout(() => (this.isLoadingChanges = false), 1000);
   }
 }

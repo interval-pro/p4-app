@@ -16,6 +16,7 @@
 <app-side-menu
   [isLoadingResultSections]="isLoadingSections"
   (toggleEdit)="onToggleEditMode($event)"
+  [siteRef]="site"
 />
 }
 
@@ -25,6 +26,7 @@
   (mouseout)="onMouseOut($event)"
   (contextmenu)="onRightClick($event)"
   (click)="onClick($event)"
+  #site
 >
   @for (section of layout.sections; track $index) {
 

@@ -16,9 +16,9 @@ export interface LayoutComponent {
   content: string;
 }
 
-export interface GeneratedSection {
+export interface GeneratedHTMLElement {
   HTML: string;
   CSS: string;
 }
 
-export interface FinishedSection extends LayoutSection, GeneratedSection {}
+export interface FinishedSection extends LayoutSection, GeneratedHTMLElement {}

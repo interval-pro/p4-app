@@ -1,0 +1,7 @@
+<div id="confirmDialog" class="dialog">
+  <div class="dialog-content">
+    <p>Are you sure you want to delete this element?</p>
+    <app-button text="Confirm" (click)="onConfirm()" />
+    <app-button text="Cancel" [isGhost]="true" (click)="onCancel()" />
+  </div>
+</div>

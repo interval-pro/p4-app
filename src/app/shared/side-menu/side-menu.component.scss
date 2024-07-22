@@ -6,18 +6,35 @@
   top: 8em;
   left: 0;
   color: black;
+  cursor: move;
 
-  #menu-icon {
-    width: 3em;
-    aspect-ratio: 1/1;
+  #icons-wrapper {
+    width: fit-content;
+    padding: 0.5em 0.5em 0.5em 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2em;
     background-color: white;
-    padding: 0.5em;
     border-radius: 0 1em 1em 0;
     box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+    margin-bottom: 0.2em;
 
-    &.unavailable {
-      cursor: not-allowed;
+    #menu-icon {
+      height: 2em;
+      aspect-ratio: 1/1;
+      cursor: pointer;
+
+      &.unavailable {
+        cursor: not-allowed;
+      }
+    }
+
+    #drag-icon {
+      height: 1.5em;
+      width: 0.75em;
+      object-fit: cover;
+      cursor: ns-resize;
     }
   }
 

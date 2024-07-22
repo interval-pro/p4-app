@@ -9,7 +9,10 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { FinishedSection, GeneratedSection } from '../../../models/api.interfaces';
+import {
+  FinishedSection,
+  GeneratedHTMLElement,
+} from '../../../models/api.interfaces';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { ApiService } from '../../../services/api.service';
 import { StylesService } from '../../../services/styles.service';
@@ -42,19 +45,18 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
   subscribeToSection(): Subscription {
     if (!this.section.sectionId) return new Subscription();
 
-    return this.api.getSection(this.section).subscribe({
+    return this.api.getMockedSection(this.section).subscribe({
       next: (sectionContent) => {
         this.applySectionMarkup(sectionContent, this.section);
         this.section.isLoading = false;
         this.loadedSection.emit(true);
       },
-      error: console.log,
-      complete: console.log,
+      error: (e) => (this.section.isLoading = false),
     });
   }
 
   applySectionMarkup(
-    sectionContentFromApi: GeneratedSection,
+    sectionContentFromApi: GeneratedHTMLElement,
     targetSection: Partial<FinishedSection>
   ) {
     this.elRef.nativeElement.innerHTML = sectionContentFromApi.HTML;

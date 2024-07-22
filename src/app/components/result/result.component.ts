@@ -54,7 +54,7 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   subscribeToLayout(): Subscription {
-    return this.api.getMockedLayout().subscribe({
+    return this.api.getLayout().subscribe({
       next: (layout) => {
         this.layout = layout;
         layout.sections.forEach((s) => (s.isLoading = true));

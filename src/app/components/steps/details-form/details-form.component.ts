@@ -39,6 +39,6 @@ export class DetailsFormComponent{
 
   onSubmit(): void {
     this.detailsData = this.detailsForm.value as Partial<DetailsData>;
-    this.router.navigateByUrl('/form/step-4');
+    this.router.navigateByUrl('/preview');
   }
 }

@@ -45,7 +45,7 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
   subscribeToSection(): Subscription {
     if (!this.section.sectionId) return new Subscription();
 
-    return this.api.getMockedSection(this.section).subscribe({
+    return this.api.getSection(this.section).subscribe({
       next: (sectionContent) => {
         this.applySectionMarkup(sectionContent, this.section);
         this.section.isLoading = false;

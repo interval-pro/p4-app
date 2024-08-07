@@ -3,7 +3,7 @@
     <pre>{{ companyData | json }}</pre>
     <div class="btn-container">
       <app-button text="Back" [isGhost]="true" (click)="onCancel()" />
-      <app-button text="Finish" (click)="onSubmit()" />
+      <app-button text="Finish" (click)="onSubmit()" [isDisabled]="isButtonDisabled" />
     </div>
   </div>
 </div>

@@ -2,7 +2,6 @@ export interface CompanyData {
   businessInfo: BusinessData;
   designInfo: DesignData;
   detailsInfo: DetailsData;
-  mediaInfo: MediaData;
 };
 
 export interface BusinessData {
@@ -29,8 +28,4 @@ export interface DetailsData {
   keyMessages: string;
   callToAction: string;
   additionalContent: string;
-};
-
-export interface MediaData {
-
 };

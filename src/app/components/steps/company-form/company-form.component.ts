@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder} from '@angular/forms';
+import { FormBuilder, Validators} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
@@ -16,7 +16,15 @@ import { BusinessData } from '../../../models/company-data.model';
   styleUrl: '../forms.scss',
 })
 export class CompanyFormComponent {
-  businessForm = this.fb.group<BusinessData>(this.businessData);
+  businessForm = this.fb.group({
+    name: [this.fs.businessData.name, Validators.required],
+    industry: [this.fs.businessData.industry, Validators.required],
+    uniqueValues: [this.fs.businessData.uniqueValues, Validators.required],
+    coreValues: [this.fs.businessData.coreValues, Validators.required],
+    businessDescription: [this.fs.businessData.businessDescription, Validators.required],
+    targetAudience: [this.businessData.targetAudience, Validators.required],
+    goals: [this.businessData.goals, Validators.required],
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +38,10 @@ export class CompanyFormComponent {
 
   set businessData(data: Partial<BusinessData>) {
     this.fs.businessData = data;
+  }
+
+  get isButtonDisabled(): boolean {
+    return this.businessForm.invalid;
   }
 
   onBack(): void {

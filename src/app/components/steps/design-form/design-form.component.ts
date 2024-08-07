@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
@@ -16,7 +16,13 @@ import { DesignData } from '../../../models/company-data.model';
   styleUrl: '../forms.scss',
 })
 export class DesignFormComponent {
-  designForm = this.fb.group<DesignData>(this.designData)
+  designForm = this.fb.group({
+    fonts: [this.fs.designData.fonts, Validators.required],
+    colors: [this.fs.designData.colors, Validators.required],
+    toneOfVoice: [this.fs.designData.toneOfVoice, Validators.required],
+    imageryStyle: [this.fs.designData.imageryStyle, Validators.required],
+    additionalDesignFeatures: [this.fs.designData.additionalDesignFeatures, Validators.required],
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +36,10 @@ export class DesignFormComponent {
 
   set designData(data: Partial<DesignData>) {
     this.fs.designData = data;
+  }
+
+  get isButtonDisabled(): boolean {
+    return this.designForm.invalid;
   }
 
   onBack(): void {

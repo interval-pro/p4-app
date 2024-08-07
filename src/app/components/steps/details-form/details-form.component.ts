@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder  } from '@angular/forms';
+import { FormBuilder, Validators  } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
@@ -16,7 +16,13 @@ import { DetailsData } from '../../../models/company-data.model';
   styleUrl: '../forms.scss',
 })
 export class DetailsFormComponent{
-  detailsForm = this.fb.group<DetailsData>(this.detailsData);
+  detailsForm = this.fb.group({
+    headlineSuggestions: [this.fs.detailsData.headlineSuggestions, Validators.required],
+    subheadlineSuggestions: [this.fs.detailsData.subheadlineSuggestions, Validators.required],
+    keyMessages : [this.fs.detailsData.keyMessages, Validators.required],
+    callToAction: [this.fs.detailsData.callToAction, Validators.required],
+    additionalContent: [this.fs.detailsData.additionalContent, Validators.required],
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +36,10 @@ export class DetailsFormComponent{
 
   set detailsData(data: Partial<DetailsData>) {
     this.fs.detailsData = data;
+  }
+
+  get isButtonDisabled(): boolean {
+    return this.detailsForm.invalid;
   }
 
   onBack(): void {

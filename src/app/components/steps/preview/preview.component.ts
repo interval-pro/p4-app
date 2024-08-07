@@ -23,8 +23,12 @@ export class PreviewComponent {
     return this.fs.companyData;
   }
 
+  get isButtonDisabled(): boolean {
+    return !this.fs.isTotalCompleted;
+  }
+
   onCancel(): void {
-    this.router.navigateByUrl('/form/step-4');
+    this.router.navigateByUrl('/form/step-3');
   }
 
   onSubmit(): void {

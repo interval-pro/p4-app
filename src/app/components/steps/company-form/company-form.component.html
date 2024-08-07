@@ -47,7 +47,7 @@
 
     <div class="btn-container">
       <app-button text="back" [isGhost]="true" (click)="onBack()" />
-      <app-button text="next" (click)="onSubmit()" />
+      <app-button text="next" (click)="onSubmit()" [isDisabled]="isButtonDisabled"/>
     </div>
   </form>
 </div>

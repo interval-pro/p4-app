@@ -15,6 +15,8 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ResultSectionComponent } from './result-section/result-section.component';
 import { ApiService } from '../../services/api.service';
 import { StylesService } from '../../services/styles.service';
+import { Router } from '@angular/router';
+import { FormService } from '../../services/form.service';
 
 @Component({
   selector: 'app-result',
@@ -46,10 +48,16 @@ export class ResultComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private styles: StylesService,
     private renderer: Renderer2,
-    private elRef: ElementRef
+    private elRef: ElementRef,
+    private router: Router,
+    private fs: FormService,
   ) {}
 
   ngOnInit(): void {
+    if (!this.fs.isTotalCompleted) {
+      this.router.navigateByUrl('/');
+      return;
+    };
     this.layoutSubscription = this.subscribeToLayout();
   }
 
@@ -62,7 +70,10 @@ export class ResultComponent implements OnInit, OnDestroy {
         this.isLoadingLayout = false;
         this.isSideMenuVisible = true;
       },
-      error: (e) => (this.isLoadingLayout = false),
+      error: (e) => {
+        this.isLoadingLayout = false;
+        this.router.navigateByUrl('/preview');
+      },
     });
   }
 

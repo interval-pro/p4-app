@@ -16,10 +16,13 @@ import { ApiEndpoints } from '../constants/api.enums';
   providedIn: 'root',
 })
 export class ApiService {
-  apiUrl = environment.apiUrl;
-  engineType = environment.engineType;
+  private apiUrl = environment.apiUrl;
+  private engineType = 0;
 
-  constructor(private http: HttpClient, private fs: FormService) {}
+  constructor(
+    private http: HttpClient,
+    private fs: FormService,
+  ) {}
 
   getLayout(): Observable<Layout> {
     return this.http.post<Layout>(

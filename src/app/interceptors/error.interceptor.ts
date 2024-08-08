@@ -13,7 +13,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.error instanceof ErrorEvent) {
         errorMsg = `Client Error: ${error.error.message}`;
       } else {
-        errorMsg = `Server Error Code: ${error.status}, Message: ${error.message}`;
+        errorMsg = `Server Error Code: ${error.status}, Message: ${error.error || error.message}`;
       }
 
       if (errorMsg !== '') toastr.error(errorMsg);

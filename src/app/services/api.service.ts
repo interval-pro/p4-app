@@ -17,7 +17,6 @@ import { ApiEndpoints } from '../constants/api.enums';
 })
 export class ApiService {
   private apiUrl = environment.apiUrl;
-  private engineType = 0;
 
   constructor(
     private http: HttpClient,
@@ -28,7 +27,7 @@ export class ApiService {
     return this.http.post<Layout>(
       this.apiUrl + ApiEndpoints.GENERATE_LAYOUT,
       { inputs: JSON.stringify(this.fs.companyData) },
-      { params: { engineType: this.engineType } }
+      { params: { engineType: this.fs.engineType } }
     );
   }
 
@@ -38,7 +37,7 @@ export class ApiService {
     return this.http.post<GeneratedHTMLElement>(
       this.apiUrl + ApiEndpoints.GENERATE_SECTION,
       { initialInputs: JSON.stringify(this.fs.companyData), section },
-      { params: { engineType: this.engineType } }
+      { params: { engineType: this.fs.engineType } }
     );
   }
 
@@ -48,7 +47,7 @@ export class ApiService {
     return this.http.post<GeneratedHTMLElement>(
       this.apiUrl + ApiEndpoints.REGENERATE_ELEMENT,
       { initialInputs: JSON.stringify(this.fs.companyData), element },
-      { params: { engineType: this.engineType } }
+      { params: { engineType: this.fs.engineType } }
     );
   }
 

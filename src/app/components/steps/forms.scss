@@ -59,4 +59,24 @@
     justify-content: center;
     gap: 1rem;
     height: 100vh;
+    pre {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid $primary;
+      border-radius: 0.5rem;
+      white-space: pre-wrap;
+      background-color: rgba(0, 0, 0, 0.01);
+      max-height: 30rem;
+      overflow-y: auto;
+    }
+    select {
+      padding: 0.4rem 0.8rem;
+      color: $primary;
+      background: $on-primary;
+      border: 1px solid $primary;
+      border-radius: 0.5rem;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
   }

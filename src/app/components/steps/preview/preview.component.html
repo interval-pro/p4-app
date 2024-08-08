@@ -1,6 +1,10 @@
 <div class="form-wrapper">
   <div class="preview-wrapper">
-    <pre>{{ companyData | json }}</pre>
+    <pre>{{ companyData | json }} {{companyData | json }}</pre>
+    <select [(ngModel)]="selectedEngine">
+      <option value="0">Default Engine</option>
+      <option value="1">Engine 1</option>
+    </select>
     <div class="btn-container">
       <app-button text="Back" [isGhost]="true" (click)="onCancel()" />
       <app-button text="Finish" (click)="onSubmit()" [isDisabled]="isButtonDisabled" />

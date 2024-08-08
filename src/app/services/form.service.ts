@@ -39,9 +39,18 @@ const getInitialDetailsData = (): DetailsData => {
   providedIn: 'root',
 })
 export class FormService {
+  private _engineType = 0;
   private _businessData: BusinessData = getInitialBusinessData();
   private _designData: DesignData = getInitialDesignData();
   private _detailsData: DetailsData = getInitialDetailsData();
+
+  get engineType(): number {
+    return this._engineType;
+  }
+
+  set engineType(type: number) {
+    this._engineType = type;
+  }
 
   get businessData(): BusinessData {
     return this._businessData;
@@ -76,33 +85,31 @@ export class FormService {
   // };
 
   get companyData(): CompanyData {
-    // return {
-    //   businessInfo: {
-    //     name: 'VoltBlast Energy',
-    //     industry: 'Beverages',
-    //     uniqueValues: 'Instant energy boost, Natural ingredients, Low sugar',
-    //     coreValues: 'Sustainability, Innovation, Customer health',
-    //     businessDescription: 'VoltBlast Energy offers a range of energy drinks designed to provide a healthy, sustainable energy boost with natural ingredients.',
-    //     targetAudience: 'Young adults, Sports enthusiasts, Health-conscious consumers',
-    //     goals: 'Expand market reach, Enhance brand recognition, Launch new flavors'
-    //   },
-    //   designInfo: {
-    //     fonts: 'Bold, modern sans-serif',
-    //     colors: 'Electric blue, neon green, black',
-    //     toneOfVoice: 'Energetic, confident, motivational',
-    //     imageryStyle: 'Dynamic action shots, vibrant and energetic themes',
-    //     additionalDesignFeatures: 'Futuristic elements, focus on motion and energy'
-    //   },
-    //   detailsInfo: {
-    //     headlineSuggestions: 'Unleash Your Potential with VoltBlast!',
-    //     subheadlineSuggestions: 'Feel the Energy, Not the Sugar',
-    //     keyMessages: 'Designed for your peak performance, Harness natural energy, Stay energized longer',
-    //     callToAction: 'Grab Your VoltBlast Today!',
-    //     additionalContent: 'Customer testimonials, Infographics about health benefits, Sponsored athlete endorsements'
-    //   },
-    //   mediaInfo: {
-    //   }
-    // };
+    return {
+      businessInfo: {
+        name: 'VoltBlast Energy',
+        industry: 'Beverages',
+        uniqueValues: 'Instant energy boost, Natural ingredients, Low sugar',
+        coreValues: 'Sustainability, Innovation, Customer health',
+        businessDescription: 'VoltBlast Energy offers a range of energy drinks designed to provide a healthy, sustainable energy boost with natural ingredients.',
+        targetAudience: 'Young adults, Sports enthusiasts, Health-conscious consumers',
+        goals: 'Expand market reach, Enhance brand recognition, Launch new flavors'
+      },
+      designInfo: {
+        fonts: 'Bold, modern sans-serif',
+        colors: 'Electric blue, neon green, black',
+        toneOfVoice: 'Energetic, confident, motivational',
+        imageryStyle: 'Dynamic action shots, vibrant and energetic themes',
+        additionalDesignFeatures: 'Futuristic elements, focus on motion and energy'
+      },
+      detailsInfo: {
+        headlineSuggestions: 'Unleash Your Potential with VoltBlast!',
+        subheadlineSuggestions: 'Feel the Energy, Not the Sugar',
+        keyMessages: 'Designed for your peak performance, Harness natural energy, Stay energized longer',
+        callToAction: 'Grab Your VoltBlast Today!',
+        additionalContent: 'Customer testimonials, Infographics about health benefits, Sponsored athlete endorsements'
+      },
+    };
     
 
     return {

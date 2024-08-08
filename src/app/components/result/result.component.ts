@@ -37,10 +37,9 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   isEditMode: boolean = false;
   isContextMenuOpen: boolean = false;
-  isLoadingSections: boolean = true;
   isLoadingLayout: boolean = true;
   isSideMenuVisible: boolean = false;
-  loadedSections: number = 0;
+  completedSections: number = 0;
 
   private layoutSubscription: Subscription = new Subscription();
 
@@ -53,6 +52,10 @@ export class ResultComponent implements OnInit, OnDestroy {
     private fs: FormService,
   ) {}
 
+  get isAllSectionsLoaded(): boolean {
+    return this.layout.sections.length === this.completedSections;
+  }
+
   ngOnInit(): void {
     if (!this.fs.isTotalCompleted) {
       this.router.navigateByUrl('/');
@@ -61,12 +64,16 @@ export class ResultComponent implements OnInit, OnDestroy {
     this.layoutSubscription = this.subscribeToLayout();
   }
 
+  onSectionCompleted(isCompleted: boolean) {
+    if (isCompleted) this.completedSections++;
+  }
+  
   subscribeToLayout(): Subscription {
     return this.api.getLayout().subscribe({
       next: (layout) => {
         this.layout = layout;
-        layout.sections.forEach((s) => (s.isLoading = true));
-        this.styles.createAndAppendStyle(this.elRef, layout.mainStyle);
+        this.layout.sections.forEach((s) => (s.isLoading = true));
+        this.styles.createAndAppendStyle(this.elRef, this.layout.mainStyle);
         this.isLoadingLayout = false;
         this.isSideMenuVisible = true;
       },
@@ -75,12 +82,6 @@ export class ResultComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/preview');
       },
     });
-  }
-
-  onLoadedSection(isLoaded: boolean) {
-    if (isLoaded) this.loadedSections++;
-    if (this.loadedSections == this.layout.sections.length)
-      this.isLoadingSections = false;
   }
 
   onToggleEditMode(isToggled: boolean) {

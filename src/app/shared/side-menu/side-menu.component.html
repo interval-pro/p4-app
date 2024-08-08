@@ -13,7 +13,7 @@
       alt="menu"
       id="menu-icon"
       [style.filter]="isOpen ? 'brightness(0.95)' : ''"
-      [class.unavailable]="isLoadingResultSections"
+      [class.unavailable]="!isAllSectionsLoaded"
       (click)="toggleMenu()"
     />
   </div>
@@ -24,11 +24,6 @@
       Edit Mode
       <img class="info" src="/assets/icons/info.svg" alt="info" />
       <p class="info">Right click on an element in the page to edit</p>
-    </li>
-
-    <li class="toggle">
-      <app-toggle />
-      Mobile Version
     </li>
 
     <li class="function" (click)="exportPdf()">

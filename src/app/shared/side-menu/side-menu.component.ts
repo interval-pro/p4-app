@@ -27,7 +27,7 @@ export class SideMenuComponent {
   private startY!: number;
   private startTop!: number;
 
-  @Input() isLoadingResultSections: boolean = true;
+  @Input() isAllSectionsLoaded: boolean = true;
   @Input() siteRef = {} as HTMLElement;
   @Output() toggleEdit: EventEmitter<boolean> = new EventEmitter<boolean>(
     false
@@ -43,7 +43,7 @@ export class SideMenuComponent {
   }
 
   toggleMenu() {
-    if (!this.isLoadingResultSections) this.isOpen = !this.isOpen;
+    if (this.isAllSectionsLoaded) this.isOpen = !this.isOpen;
   }
 
   exportHtml() {

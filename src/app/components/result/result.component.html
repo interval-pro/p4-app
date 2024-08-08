@@ -14,7 +14,7 @@
 
 @if (isSideMenuVisible) {
 <app-side-menu
-  [isLoadingResultSections]="isLoadingSections"
+  [isAllSectionsLoaded]="isAllSectionsLoaded"
   (toggleEdit)="onToggleEditMode($event)"
   [siteRef]="site"
 />
@@ -32,7 +32,7 @@
 
   <app-result-section
     [section]="section"
-    (loadedSection)="onLoadedSection($event)"
+    (sectionCompleted)="onSectionCompleted($event)"
   />
 
   }

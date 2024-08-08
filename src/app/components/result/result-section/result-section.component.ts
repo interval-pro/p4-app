@@ -16,20 +16,18 @@ import {
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { ApiService } from '../../../services/api.service';
 import { StylesService } from '../../../services/styles.service';
+import { ErrorSectionComponent } from '../../../shared/error-section/section-error.component';
 
 @Component({
   selector: 'app-result-section',
   standalone: true,
-  imports: [LoaderComponent],
+  imports: [LoaderComponent, ErrorSectionComponent],
   templateUrl: './result-section.component.html',
   styleUrl: './result-section.component.scss',
 })
 export class ResultSectionComponent implements OnInit, OnDestroy {
   @Input() section: Partial<FinishedSection> = {};
-  @Output() loadedSection: EventEmitter<boolean> = new EventEmitter<boolean>(
-    false
-  );
-
+  @Output() sectionCompleted: EventEmitter<boolean> = new EventEmitter<boolean>(false);
   private sectionSubscription: Subscription = new Subscription();
 
   constructor(
@@ -43,15 +41,16 @@ export class ResultSectionComponent implements OnInit, OnDestroy {
   }
 
   subscribeToSection(): Subscription {
-    if (!this.section.sectionId) return new Subscription();
-
     return this.api.getSection(this.section).subscribe({
       next: (sectionContent) => {
         this.applySectionMarkup(sectionContent, this.section);
-        this.section.isLoading = false;
-        this.loadedSection.emit(true);
+        this.sectionCompleted.emit(true);
       },
-      error: (e) => (this.section.isLoading = false),
+      error: (error) => {
+        this.section.isError = true;
+        this.section.isLoading = false;
+        this.sectionCompleted.emit(true);
+      },
     });
   }
 

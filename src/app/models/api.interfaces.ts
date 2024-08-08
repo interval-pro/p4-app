@@ -8,6 +8,7 @@ export interface LayoutSection {
   sectionId: string;
   components: LayoutComponent[];
   isLoading?: boolean;
+  isError?: boolean;
 }
 
 export interface LayoutComponent {

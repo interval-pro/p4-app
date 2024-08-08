@@ -1,4 +1,5 @@
 <section class="placeholder" [id]="section.sectionId">
   <h2>{{ section.sectionId }}</h2>
   @if (section.isLoading) {<app-loader />}
+  @if (section.isError) {<error-section />}
 </section>

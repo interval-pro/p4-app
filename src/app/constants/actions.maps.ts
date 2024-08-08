@@ -11,10 +11,6 @@ export const actionsMaps: actionsMap[] = [
     actions: [ApiActions.REGENERATE, ApiActions.DELETE],
   },
   {
-    targets: ['UL', 'OL'],
-    actions: [ApiActions.REGENERATE],
-  },
-  {
     targets: [
       'SPAN',
       'P',
@@ -27,8 +23,9 @@ export const actionsMaps: actionsMap[] = [
       'H5',
       'H6',
       'BLOCKQUOTE',
+      'BUTTON'
     ],
-    actions: [ApiActions.REGENERATE, ApiActions.EDIT, ApiActions.DELETE],
+    actions: [ApiActions.EDIT, ApiActions.DELETE],
   },
   {
     targets: ['IMG', 'SVG'],

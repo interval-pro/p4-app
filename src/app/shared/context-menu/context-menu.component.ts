@@ -160,7 +160,7 @@ export class ContextMenuComponent implements OnChanges {
     this.isLoadingChanges = true;
 
     this.api
-      .mockRegenerateElement({ HTML: elementHTML, CSS: sectionStyle })
+      .regenerateElement({ HTML: elementHTML, CSS: sectionStyle })
       .subscribe({
         next: (res) => {
           this.target.outerHTML = res.HTML;
@@ -210,7 +210,7 @@ export class ContextMenuComponent implements OnChanges {
 
     const imageToReplace = this.target as HTMLImageElement;
 
-    this.api.mockUploadImage(file).subscribe({
+    this.api.uploadImage(file).subscribe({
       next: (res) => (imageToReplace.src = res.fileUrl),
     });
 

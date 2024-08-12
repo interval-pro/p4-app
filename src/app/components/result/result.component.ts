@@ -67,11 +67,7 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   onSectionCompleted(isCompleted: boolean) {
-    if (!isCompleted) {
-      this.completedSections--;
-      this.isEditMode = false;
-      this.isContextMenuOpen = false;
-    };
+    if (!isCompleted) this.completedSections--;
     if (isCompleted) this.completedSections++;
   }
   

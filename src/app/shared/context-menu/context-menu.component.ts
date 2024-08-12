@@ -15,6 +15,7 @@ import { ApiService } from '../../services/api.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { RegenerateService } from '../../services/regenerate';
 
 @Component({
   selector: 'app-context-menu',
@@ -44,7 +45,8 @@ export class ContextMenuComponent implements OnChanges {
   constructor(
     private renderer: Renderer2,
     private api: ApiService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private regenerateService: RegenerateService,
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -145,30 +147,24 @@ export class ContextMenuComponent implements OnChanges {
   }
 
   onRegenerate() {
-    this.close();
+    try {
+      this.close();
+      const isSectionArray = ['SECTION', 'HEADER', 'FOOTER'];
+      if (!isSectionArray.includes(this.target.nodeName)) throw new Error('Invalid selection');
+      const appResultSectionElement = this.target.closest('app-result-section');
+      if (!appResultSectionElement) throw new Error('Invalid selection');
+      const sectionDataFromAttribute = appResultSectionElement.getAttribute('data-section');
+      if (!sectionDataFromAttribute) throw new Error('Invalid selection');
+      const sectionData = JSON.parse(sectionDataFromAttribute);
+      delete sectionData.HTML;
+      delete sectionData.CSS;
 
-    const section = this.target.closest('section, header, footer');
-    const styleElement = section?.nextElementSibling;
-    const sectionStyle = styleElement?.outerHTML;
-    const elementHTML = this.target.outerHTML;
+      this.regenerateService.announceRegeneration(sectionData);
 
-    if (!section || !styleElement || !sectionStyle) {
-      this.toastr.error('Error: Invalid selection');
-      return;
+    } catch (error: any) {
+      const message = `Regenerate failed: ${error?.message || 'Undefined error'}`;
+      this.toastr.error(message);
     }
-
-    this.isLoadingChanges = true;
-
-    this.api
-      .regenerateElement({ HTML: elementHTML, CSS: sectionStyle })
-      .subscribe({
-        next: (res) => {
-          this.target.outerHTML = res.HTML;
-          styleElement.innerHTML = res.CSS;
-        },
-      });
-
-    setTimeout(() => (this.isLoadingChanges = false), 1000);
   }
 
   onDeleteRequest() {
@@ -186,10 +182,11 @@ export class ContextMenuComponent implements OnChanges {
 
   onEdit() {
     this.close();
-
     this.target.contentEditable = this.target.isContentEditable
       ? 'false'
       : 'true';
+    this.target.focus();
+    this.target.onblur = () => (this.target.contentEditable = 'false');
   }
 
   onUpload() {
@@ -211,9 +208,10 @@ export class ContextMenuComponent implements OnChanges {
     const imageToReplace = this.target as HTMLImageElement;
 
     this.api.uploadImage(file).subscribe({
-      next: (res) => (imageToReplace.src = res.fileUrl),
+      next: (res) => {
+        imageToReplace.src = res.fileUrl;
+        this.isLoadingChanges = false;
+      },
     });
-
-    setTimeout(() => (this.isLoadingChanges = false), 1000);
   }
 }

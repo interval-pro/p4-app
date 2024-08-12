@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 import { FormService } from './form.service';
 
@@ -52,12 +52,16 @@ export class ApiService {
   }
 
   uploadImage(file: File): Observable<{ fileUrl: string }> {
-    const formData = new FormData();
-    formData.append('file', file, file.name);
-
-    return this.http.post<{ fileUrl: string }>(
-      this.apiUrl + ApiEndpoints.UPLOAD_IMAGE,
-      formData
-    );
+    return Observable.create((observer: Observer<{ fileUrl: string }>) => {
+      const fileReader = new FileReader();
+      fileReader.onload = (event: any) => {
+        observer.next({ fileUrl: event.target.result });
+        observer.complete();
+      };
+      fileReader.onerror = (error) => {
+        observer.error(error);
+      };
+      fileReader.readAsDataURL(file);
+    });
   }
 }

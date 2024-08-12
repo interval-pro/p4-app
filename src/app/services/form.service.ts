@@ -76,14 +76,6 @@ export class FormService {
     this._detailsData = { ...this._detailsData, ...data };
   };
 
-  // get mediaData(): MediaData {
-  //   return this._mediaData;
-  // }
-
-  // set mediaData(data: Partial<MediaData>) {
-  //   this._mediaData = {...this._mediaData, ...data};
-  // };
-
   get companyData(): CompanyData {
     return {
       businessInfo: {

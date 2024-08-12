@@ -19,4 +19,10 @@ export class StylesService {
     styleElement.innerHTML = style;
     this.renderer.appendChild(elRef.nativeElement, styleElement);
   }
+
+  removeStyle(elRef: ElementRef) {
+    const styleElement = elRef.nativeElement.querySelector('style');
+    if (!styleElement) return;
+    this.renderer.removeChild(elRef.nativeElement, styleElement);
+  }
 }

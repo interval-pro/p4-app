@@ -29,6 +29,6 @@ export const actionsMaps: actionsMap[] = [
   },
   {
     targets: ['IMG', 'SVG'],
-    actions: [ApiActions.REGENERATE, ApiActions.UPLOAD, ApiActions.DELETE],
+    actions: [ApiActions.UPLOAD, ApiActions.DELETE],
   },
 ];

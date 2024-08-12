@@ -1,5 +1,9 @@
-<section class="placeholder" [id]="section.sectionId">
-  <h2>{{ section.sectionId }}</h2>
-  @if (section.isLoading) {<app-loader />}
-  @if (section.isError) {<error-section />}
-</section>
+@if (section.isLoading || section.isError) {
+  <section class="placeholder" [id]="section.sectionId">
+    <h2>{{ section.sectionId }}</h2>
+    @if (section.isLoading) {<app-loader />}
+    @if (section.isError) {<error-section />}
+  </section>
+}
+
+<section #innerWarpper [style.display]="section.isLoading || section.isError ? 'none' : 'unset'"></section>

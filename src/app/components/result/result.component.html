@@ -33,6 +33,7 @@
   <app-result-section
     [section]="section"
     (sectionCompleted)="onSectionCompleted($event)"
+    [attr.data-section]="section | json"
   />
 
   }

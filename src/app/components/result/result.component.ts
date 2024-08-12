@@ -17,6 +17,7 @@ import { ApiService } from '../../services/api.service';
 import { StylesService } from '../../services/styles.service';
 import { Router } from '@angular/router';
 import { FormService } from '../../services/form.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-result',
@@ -27,6 +28,7 @@ import { FormService } from '../../services/form.service';
     SideMenuComponent,
     LoaderComponent,
     ResultSectionComponent,
+    CommonModule,
   ],
   templateUrl: './result.component.html',
   styleUrl: './result.component.scss',
@@ -65,6 +67,11 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   onSectionCompleted(isCompleted: boolean) {
+    if (!isCompleted) {
+      this.completedSections--;
+      this.isEditMode = false;
+      this.isContextMenuOpen = false;
+    };
     if (isCompleted) this.completedSections++;
   }
   
@@ -105,10 +112,9 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   onRightClick(event: MouseEvent) {
+    if (this.isContextMenuOpen) this.isContextMenuOpen = false;
     if (this.isEditMode) event.preventDefault();
-
     if (this.isContextMenuOpen) return;
-
     if (this.isEditMode && event.target) {
       this.isContextMenuOpen = true;
       this.event = event;

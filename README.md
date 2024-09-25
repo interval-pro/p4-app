@@ -4,16 +4,20 @@
 - Node.js v20.11.1
 - npm 10.2.4
 
+## API Repository
+https://github.com/interval-pro/p4-api
+
 ## Getting Started
+0. Run the API
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/yourprojectname.git
+   git clone https://github.com/interval-pro/p4-app.git
    ```
 
 2. Install the dependencies:
    ```bash
-    cd yourprojectname
+    cd p4-app
     npm install
     ```
 
